@@ -26,7 +26,10 @@
         android:layout_alignParentStart="true"
         android:textColor="@color/grey"
         android:textSize="@dimen/text_size_13sp"
-        tools:text="@string/conferences_subtitle"/>
+        tools:text="@string/conferences_subtitle"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:ellipsize="end"/>
 
     <ImageButton
         android:id="@+id/contextual_menu"
