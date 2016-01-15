@@ -1,7 +1,7 @@
 package team.io.youcodeio;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -11,6 +11,8 @@ import br.liveo.interfaces.OnPrepareOptionsMenuLiveo;
 import br.liveo.model.HelpLiveo;
 import br.liveo.model.Navigation;
 import br.liveo.navigationliveo.NavigationLiveo;
+import team.io.youcodeio.ui.fragment.conferences.ConferencesFragment;
+import team.io.youcodeio.ui.fragment.search.SearchFragment;
 
 public class HomeActivity extends NavigationLiveo implements OnItemClickListener {
 
@@ -72,12 +74,15 @@ public class HomeActivity extends NavigationLiveo implements OnItemClickListener
         Fragment mFragment = null;
         switch (i) {
             case 0:
-                // TODO change this to SearchFragment
-                //mFragment = new AnnonceListFragment();
+                // Launch the SearchFragment when this item on the drawer menu are selected
+                //mFragment = new SearchFragment();
+                mFragment = new SearchFragment();
+                //SearchActivity.start(this);
                 break;
             case 1:
                 // TODO change this to ConferencesFragment
                 //AnnonceCreationOrUpdateActivity.start(this);
+                mFragment = new ConferencesFragment();
                 break;
             case 2:
                 // TODO change this to ChannelsFragment
@@ -93,7 +98,7 @@ public class HomeActivity extends NavigationLiveo implements OnItemClickListener
         }
 
         if (mFragment != null){
-            FragmentManager fragmentManager = getFragmentManager();
+            FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.container, mFragment).commit();
         }
