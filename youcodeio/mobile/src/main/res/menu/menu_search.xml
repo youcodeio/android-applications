@@ -1,12 +1,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="team.io.youcodeio.SearchActivity" >
+    tools:context="team.io.youcodeio.SearchActivity">
     <item
         android:id="@+id/action_search"
         android:icon="@drawable/ic_action_action_search"
-        android:orderInCategory="100"
+        android:orderInCategory="5"
         android:title="@string/abc_search_hint"
-        app:showAsAction="always"
-        android:actionViewClass="android.widget.SearchView"/>
+        android:textColor="#FFF"
+        app:showAsAction="ifRoom|collapseActionView"
+        app:actionViewClass="android.support.v7.widget.SearchView"/>
 </menu>

@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import team.io.youcodeio.R;
-import team.io.youcodeio.model.ConferencesModel;
+import team.io.youcodeio.model.conferences.ConferencesModel;
 
 /**
  * Created by stevenwatremez on 11/01/16.

@@ -1,6 +1,5 @@
-package team.io.youcodeio.model;
+package team.io.youcodeio.model.conferences;
 
-import java.util.List;
 import java.util.Map;
 
 /**

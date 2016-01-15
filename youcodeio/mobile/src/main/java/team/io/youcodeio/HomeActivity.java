@@ -12,6 +12,7 @@ import br.liveo.model.HelpLiveo;
 import br.liveo.model.Navigation;
 import br.liveo.navigationliveo.NavigationLiveo;
 import team.io.youcodeio.ui.fragment.about.AboutFragment;
+import team.io.youcodeio.ui.fragment.channels.ChannelFragment;
 import team.io.youcodeio.ui.fragment.conferences.ConferencesFragment;
 import team.io.youcodeio.ui.fragment.search.SearchFragment;
 
@@ -25,8 +26,8 @@ public class HomeActivity extends NavigationLiveo implements OnItemClickListener
      ***********************************************************************************************/
     @Override
     public void onInt(Bundle bundle) {
-        //  TODO User Information
-        /* TODO ------- create a MODEL for this information ------ */
+
+        /* -------------------------------------------------- */
         this.userBackground.setImageResource(R.drawable.background_drawer_menu_youcodeio);
         /* -------------------------------------------------- */
 
@@ -75,23 +76,15 @@ public class HomeActivity extends NavigationLiveo implements OnItemClickListener
         Fragment mFragment = null;
         switch (i) {
             case 0:
-                // Launch the SearchFragment when this item on the drawer menu are selected
-                //mFragment = new SearchFragment();
                 mFragment = new SearchFragment();
-                //SearchActivity.start(this);
                 break;
             case 1:
-                // TODO change this to ConferencesFragment
-                //AnnonceCreationOrUpdateActivity.start(this);
                 mFragment = new ConferencesFragment();
                 break;
             case 2:
-                // TODO change this to ChannelsFragment
-                //mFragment = new MyAdsFragment();
+                mFragment = new ChannelFragment();
                 break;
             case 4:
-                // TODO change this to AboutFragment
-                //MySaveActvity.start(this);
                 mFragment = new AboutFragment();
                 break;
 

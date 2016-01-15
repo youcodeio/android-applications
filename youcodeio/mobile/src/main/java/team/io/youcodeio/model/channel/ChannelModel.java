@@ -1,4 +1,6 @@
-package team.io.youcodeio.model;
+package team.io.youcodeio.model.channel;
+
+import android.graphics.Bitmap;
 
 import java.util.Map;
 
@@ -6,20 +8,21 @@ import java.util.Map;
  * Created by stevenwatremez on 15/01/16.
  *
  */
-public class AboutModel {
+public class ChannelModel {
+
 
     /*****************************************************************
      * DATA
      ****************************************************************/
     private long id;
-    private String mName;
+    private String mTitle;
     private String mDescription;
-    private Map<String, String> mSocialNetworkLink;
+    private Bitmap mLogo;
 
     /*****************************************************************
      * CONSTRUCTOR
      ****************************************************************/
-    public AboutModel() {
+    public ChannelModel() {
     }
 
     /*****************************************************************
@@ -29,16 +32,16 @@ public class AboutModel {
         return id;
     }
 
-    public String getName() {
-        return mName;
+    public String getTitle() {
+        return mTitle;
     }
 
-    public String getDescription() {
+    public String getSubtitle() {
         return mDescription;
     }
 
-    public Map<String, String> getSocialNetworkLink() {
-        return mSocialNetworkLink;
+    public Bitmap getLogo() {
+        return mLogo;
     }
 
     /*****************************************************************
@@ -49,42 +52,42 @@ public class AboutModel {
     }
 
     public void setTitle(String text) {
-        this.mName = text;
+        this.mTitle = text;
     }
 
     public void setSubtitle(String subtitle) {
         this.mDescription = subtitle;
     }
 
-    public void setSocialNetworkLink(Map<String, String> socialNetworkLink) {
-        mSocialNetworkLink = socialNetworkLink;
+    public void setLogo(Bitmap logo) {
+        mLogo = logo;
     }
 
     public static class Builder {
 
-        private AboutModel mAboutModel;
+        private ChannelModel mChannelModel;
 
         public Builder() {
-            mAboutModel = new AboutModel();
+            mChannelModel = new ChannelModel();
         }
 
-        public Builder setName(String name) {
-            mAboutModel.mName = name;
+        public Builder setTitle(String title) {
+            mChannelModel.mTitle = title;
             return this;
         }
 
         public Builder setDescription(String description) {
-            mAboutModel.mDescription = description;
+            mChannelModel.mDescription = description;
             return this;
         }
 
-        public Builder setSocialNetworkLink(Map<String, String> socialNetworkLink) {
-            mAboutModel.mSocialNetworkLink = socialNetworkLink;
+        public Builder setLogo(Bitmap logo) {
+            mChannelModel.mLogo = logo;
             return this;
         }
 
-        public AboutModel build() {
-            return mAboutModel;
+        public ChannelModel build() {
+            return mChannelModel;
         }
 
     }

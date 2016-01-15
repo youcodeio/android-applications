@@ -18,7 +18,7 @@ import butterknife.Bind;
 import butterknife.BindString;
 import butterknife.ButterKnife;
 import team.io.youcodeio.R;
-import team.io.youcodeio.model.AboutModel;
+import team.io.youcodeio.model.about.AboutModel;
 import team.io.youcodeio.ui.adapter.about.AboutRecyclerViewAdapter;
 
 /**

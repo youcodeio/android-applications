@@ -18,11 +18,12 @@ import butterknife.Bind;
 import butterknife.BindString;
 import butterknife.ButterKnife;
 import team.io.youcodeio.R;
-import team.io.youcodeio.model.ConferencesModel;
+import team.io.youcodeio.model.conferences.ConferencesModel;
 import team.io.youcodeio.ui.adapter.conferences.ConferencesRecyclerViewAdapter;
 
 /**
  * Created by stevenwatremez on 11/01/16.
+ *
  */
 public class ConferencesFragment extends Fragment{
 
@@ -94,9 +95,9 @@ public class ConferencesFragment extends Fragment{
 
     private void createFakeConferencesdata(){
         Map<String, String> conferencesYearMap = new HashMap<>();
+        mListConferencesModel = new ArrayList<>();
 
         // FIXME DATA 1
-        mListConferencesModel = new ArrayList<>();
         mConferencesModelBuilder = new ConferencesModel.Builder();
 
         conferencesYearMap.put("2014", "http://youcode.io/#/home");
