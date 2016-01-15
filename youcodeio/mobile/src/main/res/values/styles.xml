@@ -36,8 +36,12 @@
     </style>
 
     <style name="style_text_title_16sp_bold">
-        <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">@dimen/text_size_16sp</item>
+    </style>
+
+    <style name="style_text_title_about_16sp_bold">
+        <item name="android:textColor">@color/black</item>
         <item name="android:textSize">@dimen/text_size_16sp</item>
     </style>
 

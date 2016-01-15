@@ -11,6 +11,7 @@ import br.liveo.interfaces.OnPrepareOptionsMenuLiveo;
 import br.liveo.model.HelpLiveo;
 import br.liveo.model.Navigation;
 import br.liveo.navigationliveo.NavigationLiveo;
+import team.io.youcodeio.ui.fragment.about.AboutFragment;
 import team.io.youcodeio.ui.fragment.conferences.ConferencesFragment;
 import team.io.youcodeio.ui.fragment.search.SearchFragment;
 
@@ -91,6 +92,7 @@ public class HomeActivity extends NavigationLiveo implements OnItemClickListener
             case 4:
                 // TODO change this to AboutFragment
                 //MySaveActvity.start(this);
+                mFragment = new AboutFragment();
                 break;
 
             default:

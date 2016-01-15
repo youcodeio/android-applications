@@ -1,4 +1,4 @@
-package team.io.youcodeio.ui.adapter.conferences;
+package team.io.youcodeio.ui.adapter.about;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,27 +11,27 @@ import java.util.List;
 import java.util.Map;
 
 import team.io.youcodeio.R;
-import team.io.youcodeio.model.ConferencesModel;
+import team.io.youcodeio.model.AboutModel;
 
 /**
- * Created by stevenwatremez on 11/01/16.
+ * Created by stevenwatremez on 15/01/16.
  *
  */
-public class ConferencesRecyclerViewAdapter extends RecyclerView.Adapter<ConferencesRecyclerViewAdapter.ViewHolder> {
+public class AboutRecyclerViewAdapter extends RecyclerView.Adapter<AboutRecyclerViewAdapter.ViewHolder>{
 
     /*****************************************************************
      * DATA
      ****************************************************************/
     private int mPosition;
-    private List<ConferencesModel> mItems;
-    private int mItemLayout = R.layout.recyclerview_item_conferences;
-    private Map<String, String> mIdToConferencesYearMap;
+    private List<AboutModel> mItems;
+    private int mItemLayout = R.layout.recyclerview_item_about;
+    private Map<String, String> mIdToSocialNetworkLink;
 
 
     /*****************************************************************
      * CONSTRUCTOR
      ****************************************************************/
-    public ConferencesRecyclerViewAdapter(List<ConferencesModel> items) {
+    public AboutRecyclerViewAdapter(List<AboutModel> items) {
         this.mItems = items;
     }
 
@@ -39,17 +39,17 @@ public class ConferencesRecyclerViewAdapter extends RecyclerView.Adapter<Confere
      * OVERRIDE METHODS
      ****************************************************************/
     @Override
-    public ConferencesRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public AboutRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(mItemLayout, parent, false);
         return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final ConferencesModel item = mItems.get(position);
+        final AboutModel item = mItems.get(position);
         holder.itemView.setTag(item);
-        holder.title.setText(item.getTitle());
-        holder.subtitle.setText(item.getSubtitle());
+        holder.name.setText(item.getName());
+        holder.description.setText(item.getDescription());
     }
 
     @Override
@@ -62,15 +62,15 @@ public class ConferencesRecyclerViewAdapter extends RecyclerView.Adapter<Confere
      ****************************************************************/
     // TODO need to implements View.OnCreateContextMenuListener
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView title;
-        public TextView subtitle;
+        public TextView name;
+        public TextView description;
         public ImageButton menuButton;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            title = (TextView) itemView.findViewById(R.id.title);
-            subtitle = (TextView) itemView.findViewById(R.id.subtitle);
-            menuButton = (ImageButton) itemView.findViewById(R.id.contextual_menu_conferences);
+            name = (TextView) itemView.findViewById(R.id.name);
+            description = (TextView) itemView.findViewById(R.id.description);
+            menuButton = (ImageButton) itemView.findViewById(R.id.contextual_menu_about);
             // TODO implement Context Menu in Recycler view
             //itemView.setOnCreateContextMenuListener(this);
         }
@@ -78,7 +78,7 @@ public class ConferencesRecyclerViewAdapter extends RecyclerView.Adapter<Confere
         /*@Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
             //menuInfo is null
-            for (ConferencesModel item : mI) {
+            for (AboutModel item : mItems) {
 
             }
             menu.add();
@@ -97,5 +97,5 @@ public class ConferencesRecyclerViewAdapter extends RecyclerView.Adapter<Confere
         this.mPosition = position;
     }
 
-    // TODO create the Getter of the mIdToConferencesYear Map
+    // TODO create the Getter of the mIdToSocialNetworkLink Map
 }

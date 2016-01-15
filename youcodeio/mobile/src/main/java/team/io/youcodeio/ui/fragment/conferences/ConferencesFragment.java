@@ -38,7 +38,7 @@ public class ConferencesFragment extends Fragment{
     /*****************************************************************
      * UI
      ****************************************************************/
-    @Bind(R.id.my_recycler_view)
+    @Bind(R.id.conferences_recycler_view)
     RecyclerView mConferencesRecyclerView;
 
     @BindString(R.string.drawer_menu_conferences)
