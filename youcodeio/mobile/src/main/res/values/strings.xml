@@ -110,4 +110,6 @@
 
     <string name="conferences_title">Test title</string>
     <string name="conferences_subtitle">This a subtitle to test.</string>
+
+    <string name="about_skill_text"><b>%s -</b> %s</string>
 </resources>

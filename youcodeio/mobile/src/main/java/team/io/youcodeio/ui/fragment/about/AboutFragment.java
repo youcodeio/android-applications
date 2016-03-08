@@ -106,6 +106,7 @@ public class AboutFragment extends Fragment{
 
         mAboutModelBuilder
                 .setName("Pierre Zemb")
+                .setSkills("Dev back")
                 .setDescription("Hi! My name is Pierre Zemb, and I'm a French student in a graduate school of engineeringscience called ISEN where I'm currently studying Software Engineering. I'm really enjoying coding in C++, Java or Go and ship them with Docker, but I always end up developping Web apps like this one. Checkout my twitter and my website for more info!")
                 .setSocialNetworkLink(aboutYearMap);
 
@@ -121,6 +122,7 @@ public class AboutFragment extends Fragment{
 
         mAboutModelBuilder
                 .setName("Alexis Hellouin")
+                .setSkills("Dev web front and back")
                 .setDescription("Hello, my name is Alexis and I am a french student in engineering school. I like web and software development, and also discovering new framework. I'm really enjoying coding in Java, Android and I try new language when I have the time (next is C++). You can check my twitter and linkedIn account for more info!")
                 .setSocialNetworkLink(aboutYearMap);
 
@@ -136,6 +138,7 @@ public class AboutFragment extends Fragment{
 
         mAboutModelBuilder
                 .setName("Steven Watremez")
+                .setSkills("Dev web and mobile front")
                 .setDescription("Hi! My name is Steven Watremez, and I'm a French student too. In same cursus like Pierre and Alexis.I like coding for the web. It is really awesome to inovate and learn new technologies like AngularJS or Polymer. I'm web designer for my extra-activity and I like it. I designed this web app. Checkout my twitter and my website for more info!")
                 .setSocialNetworkLink(aboutYearMap);
 
@@ -150,6 +153,7 @@ public class AboutFragment extends Fragment{
 
         mAboutModelBuilder
                 .setName("Mathieu Sallardon")
+                .setSkills("Dev web front")
                 .setDescription("Hi! My name is Mathieu Sallardon, and I'm a French student in a graduate school of engineeringscience called ISEN where I'm currently studying Software Engineering. I'm really enjoying coding in C++, Java or Go and ship them with Docker, but I always end up developping Web apps like this one. Checkout my twitter and my website for more info!")
                 .setSocialNetworkLink(aboutYearMap);
 
@@ -165,6 +169,7 @@ public class AboutFragment extends Fragment{
 
         mAboutModelBuilder
                 .setName("Maxime Caruchet")
+                .setSkills("Dev back & Devops")
                 .setDescription("Hello, my name is Maxime Caruchet and I am a french student in engineering school. I like web and software development, and also discovering new framework. I'm really enjoying coding in Java, Android and I try new language when I have the time (next is C++). You can check my twitter and linkedIn account for more info!")
                 .setSocialNetworkLink(aboutYearMap);
 
@@ -180,6 +185,7 @@ public class AboutFragment extends Fragment{
 
         mAboutModelBuilder
                 .setName("Florian Barreau")
+                .setSkills("Dev web front")
                 .setDescription("Hi! My name is Florian Barreau, and I'm a French student too. In same cursus like Pierre and Alexis.I like coding for the web. It is really awesome to inovate and learn new technologies like AngularJS or Polymer. I'm web designer for my extra-activity and I like it. I designed this web app. Checkout my twitter and my website for more info!")
                 .setSocialNetworkLink(aboutYearMap);
 

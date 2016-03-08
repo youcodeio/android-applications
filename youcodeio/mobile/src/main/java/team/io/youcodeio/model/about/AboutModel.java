@@ -13,6 +13,7 @@ public class AboutModel {
      ****************************************************************/
     private long id;
     private String mName;
+    private String mSkills;
     private String mDescription;
     private Map<String, String> mSocialNetworkLink;
 
@@ -31,6 +32,10 @@ public class AboutModel {
 
     public String getName() {
         return mName;
+    }
+
+    public String getSkills() {
+        return mSkills;
     }
 
     public String getDescription() {
@@ -52,6 +57,10 @@ public class AboutModel {
         this.mName = text;
     }
 
+    public void setSkills(String skills) {
+        this.mSkills = skills;
+    }
+
     public void setSubtitle(String subtitle) {
         this.mDescription = subtitle;
     }
@@ -70,6 +79,11 @@ public class AboutModel {
 
         public Builder setName(String name) {
             mAboutModel.mName = name;
+            return this;
+        }
+
+        public Builder setSkills(String skills) {
+            mAboutModel.mSkills = skills;
             return this;
         }
 

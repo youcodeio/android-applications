@@ -1,15 +1,20 @@
 package team.io.youcodeio.ui.adapter.about;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 import java.util.Map;
 
+import butterknife.BindString;
+import butterknife.ButterKnife;
 import team.io.youcodeio.R;
 import team.io.youcodeio.model.about.AboutModel;
 
@@ -19,6 +24,9 @@ import team.io.youcodeio.model.about.AboutModel;
  */
 public class AboutRecyclerViewAdapter extends RecyclerView.Adapter<AboutRecyclerViewAdapter.ViewHolder>{
 
+
+    @BindString(R.string.about_skill_text)
+    String mAboutSkillTextString;
     /*****************************************************************
      * DATA
      ****************************************************************/
@@ -41,6 +49,7 @@ public class AboutRecyclerViewAdapter extends RecyclerView.Adapter<AboutRecycler
     @Override
     public AboutRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(mItemLayout, parent, false);
+        ButterKnife.bind(this, v);
         return new ViewHolder(v);
     }
 
@@ -49,7 +58,7 @@ public class AboutRecyclerViewAdapter extends RecyclerView.Adapter<AboutRecycler
         final AboutModel item = mItems.get(position);
         holder.itemView.setTag(item);
         holder.name.setText(item.getName());
-        holder.description.setText(item.getDescription());
+        holder.description.setText(Html.fromHtml(String.format(mAboutSkillTextString, item.getSkills(), item.getDescription())));
     }
 
     @Override

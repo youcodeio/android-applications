@@ -37,6 +37,19 @@
         tools:text="@string/conferences_subtitle"
         android:maxLines="2"
         android:ellipsize="end"/>
+    <TextView
+        android:id="@+id/skills"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_16dp"
+        android:layout_marginStart="@dimen/margin_72dp"
+        android:layout_marginEnd="@dimen/margin_56dp"
+        android:layout_below="@id/name"
+        android:textColor="@color/grey"
+        android:textSize="@dimen/text_size_13sp"
+        tools:text="@string/conferences_subtitle"
+        android:maxLines="2"
+        android:ellipsize="end"/>
 
     <ImageButton
         android:id="@+id/contextual_menu_about"
