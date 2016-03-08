@@ -18,6 +18,7 @@ import butterknife.Bind;
 import butterknife.BindString;
 import butterknife.ButterKnife;
 import team.io.youcodeio.R;
+import team.io.youcodeio.model.conferences.ConferenceSessions;
 import team.io.youcodeio.model.conferences.ConferencesModel;
 import team.io.youcodeio.ui.adapter.conferences.ConferencesRecyclerViewAdapter;
 
@@ -85,105 +86,81 @@ public class ConferencesFragment extends Fragment {
     }
 
     private void createFakeConferencesdata() {
-        Map<String, String> conferencesYearMap = new HashMap<>();
+        List<ConferenceSessions> conferenceSessionsList = new ArrayList<>();
         mListConferencesModel = new ArrayList<>();
 
         // FIXME DATA 1
         mConferencesModelBuilder = new ConferencesModel.Builder();
 
-        conferencesYearMap.put("2014", "http://youcode.io/#/home");
-        conferencesYearMap.put("2015", "http://youcode.io/#/home");
+        conferenceSessionsList.add(new ConferenceSessions("2014", "http://youcode.io/#/home"));
+        conferenceSessionsList.add(new ConferenceSessions("2015", "http://youcode.io/#/home"));
 
         mConferencesModelBuilder
                 .setTitle("Google I/O")
                 .setSubtitle("An annual software developer-focused conference held by Google in San Francisco, California.")
-                .setConferencesYear(conferencesYearMap);
+                .setConferenceSessions(conferenceSessionsList);
 
         mListConferencesModel.add(mConferencesModelBuilder.build());
 
 
         // FIXME DATA 2
-        conferencesYearMap = new HashMap<>();
         mConferencesModelBuilder = new ConferencesModel.Builder();
-
-        conferencesYearMap.put("2014", "http://youcode.io/#/home");
-        conferencesYearMap.put("2015", "http://youcode.io/#/home");
 
         mConferencesModelBuilder
                 .setTitle("DotGo")
                 .setSubtitle("The European Go conference.")
-                .setConferencesYear(conferencesYearMap);
+                .setConferenceSessions(conferenceSessionsList);
 
         mListConferencesModel.add(mConferencesModelBuilder.build());
 
 
         // FIXME DATA 3
-        conferencesYearMap = new HashMap<>();
         mConferencesModelBuilder = new ConferencesModel.Builder();
-
-        conferencesYearMap.put("2014", "http://youcode.io/#/home");
-        conferencesYearMap.put("2015", "http://youcode.io/#/home");
 
         mConferencesModelBuilder
                 .setTitle("DotJS")
                 .setSubtitle("The European JS conference.")
-                .setConferencesYear(conferencesYearMap);
+                .setConferenceSessions(conferenceSessionsList);
 
         mListConferencesModel.add(mConferencesModelBuilder.build());
 
         // FIXME DATA 4
-        conferencesYearMap = new HashMap<>();
         mConferencesModelBuilder = new ConferencesModel.Builder();
-
-        conferencesYearMap.put("2014", "http://youcode.io/#/home");
-        conferencesYearMap.put("2015", "http://youcode.io/#/home");
 
         mConferencesModelBuilder
                 .setTitle("DotScale")
                 .setSubtitle("The European Tech Conference on Scalability.")
-                .setConferencesYear(conferencesYearMap);
+                .setConferenceSessions(conferenceSessionsList);
 
         mListConferencesModel.add(mConferencesModelBuilder.build());
 
         // FIXME DATA 5
-        conferencesYearMap = new HashMap<>();
         mConferencesModelBuilder = new ConferencesModel.Builder();
-
-        conferencesYearMap.put("2014", "http://youcode.io/#/home");
-        conferencesYearMap.put("2015", "http://youcode.io/#/home");
 
         mConferencesModelBuilder
                 .setTitle("DotScale")
                 .setSubtitle("The European Tech Conference on Scalability.")
-                .setConferencesYear(conferencesYearMap);
+                .setConferenceSessions(conferenceSessionsList);
 
         mListConferencesModel.add(mConferencesModelBuilder.build());
 
         // FIXME DATA 6
-        conferencesYearMap = new HashMap<>();
         mConferencesModelBuilder = new ConferencesModel.Builder();
-
-        conferencesYearMap.put("2014", "http://youcode.io/#/home");
-        conferencesYearMap.put("2015", "http://youcode.io/#/home");
 
         mConferencesModelBuilder
                 .setTitle("ng-conf")
                 .setSubtitle("The World's Original Angular Conference.")
-                .setConferencesYear(conferencesYearMap);
+                .setConferenceSessions(conferenceSessionsList);
 
         mListConferencesModel.add(mConferencesModelBuilder.build());
 
         // FIXME DATA 7
-        conferencesYearMap = new HashMap<>();
         mConferencesModelBuilder = new ConferencesModel.Builder();
-
-        conferencesYearMap.put("2014", "http://youcode.io/#/home");
-        conferencesYearMap.put("2015", "http://youcode.io/#/home");
 
         mConferencesModelBuilder
                 .setTitle("FOSDEM")
                 .setSubtitle("OSDEM is a free event for software developers to meet, share ideas and collaborate.")
-                .setConferencesYear(conferencesYearMap);
+                .setConferenceSessions(conferenceSessionsList);
 
         mListConferencesModel.add(mConferencesModelBuilder.build());
     }

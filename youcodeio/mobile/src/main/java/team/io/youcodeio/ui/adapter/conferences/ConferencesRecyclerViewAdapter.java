@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import team.io.youcodeio.R;
+import team.io.youcodeio.model.conferences.ConferenceSessions;
 import team.io.youcodeio.model.conferences.ConferencesModel;
 
 /**
@@ -25,7 +26,7 @@ public class ConferencesRecyclerViewAdapter extends RecyclerView.Adapter<Confere
     private int mPosition;
     private List<ConferencesModel> mItems;
     private int mItemLayout = R.layout.recyclerview_item_conferences;
-    private Map<String, String> mIdToConferencesYearMap;
+    private List<ConferenceSessions> mConferenceSessionsList;
 
 
     /*****************************************************************

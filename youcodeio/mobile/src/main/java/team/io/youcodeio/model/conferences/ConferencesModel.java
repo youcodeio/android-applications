@@ -1,9 +1,10 @@
 package team.io.youcodeio.model.conferences;
 
-import java.util.Map;
+import java.util.List;
 
 /**
  * Created by stevenwatremez on 11/01/16.
+ *
  */
 public class ConferencesModel {
 
@@ -13,7 +14,7 @@ public class ConferencesModel {
     private long id;
     private String mTitle;
     private String mSubtitle;
-    private Map<String, String> mConferencesYear;
+    private List<ConferenceSessions> mConferencesSessionsList;
 
     /*****************************************************************
      * CONSTRUCTOR
@@ -36,8 +37,8 @@ public class ConferencesModel {
         return mSubtitle;
     }
 
-    public Map<String, String> getConferencesYear() {
-        return mConferencesYear;
+    public List<ConferenceSessions> getConferencesSessions() {
+        return mConferencesSessionsList;
     }
 
     /*****************************************************************
@@ -55,8 +56,8 @@ public class ConferencesModel {
         this.mSubtitle = subtitle;
     }
 
-    public void setConferencesYear(Map<String, String> conferencesYear) {
-        mConferencesYear = conferencesYear;
+    public void setConferencesSessions(List<ConferenceSessions> conferenceSessionsList) {
+        mConferencesSessionsList = conferenceSessionsList;
     }
 
     public static class Builder {
@@ -77,8 +78,8 @@ public class ConferencesModel {
             return this;
         }
 
-        public Builder setConferencesYear(Map<String, String> conferencesYear) {
-            mConferencesModel.mConferencesYear = conferencesYear;
+        public Builder setConferenceSessions(List<ConferenceSessions> conferenceSessionsList) {
+            mConferencesModel.mConferencesSessionsList = conferenceSessionsList;
             return this;
         }
 
