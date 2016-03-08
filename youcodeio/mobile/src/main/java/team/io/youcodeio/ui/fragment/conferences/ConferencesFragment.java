@@ -23,9 +23,8 @@ import team.io.youcodeio.ui.adapter.conferences.ConferencesRecyclerViewAdapter;
 
 /**
  * Created by stevenwatremez on 11/01/16.
- *
  */
-public class ConferencesFragment extends Fragment{
+public class ConferencesFragment extends Fragment {
 
     /*****************************************************************
      * DATA
@@ -93,7 +92,7 @@ public class ConferencesFragment extends Fragment{
         mConferencesRecyclerView.setAdapter(mAdapter);
     }
 
-    private void createFakeConferencesdata(){
+    private void createFakeConferencesdata() {
         Map<String, String> conferencesYearMap = new HashMap<>();
         mListConferencesModel = new ArrayList<>();
 

@@ -10,7 +10,6 @@ import team.io.youcodeio.R;
 
 /**
  * Created by stevenwatremez on 11/01/16.
- *
  */
 public class SplashScreen extends Activity {
 

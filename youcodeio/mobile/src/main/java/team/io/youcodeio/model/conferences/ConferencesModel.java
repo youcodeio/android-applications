@@ -4,7 +4,6 @@ import java.util.Map;
 
 /**
  * Created by stevenwatremez on 11/01/16.
- *
  */
 public class ConferencesModel {
 
@@ -79,7 +78,7 @@ public class ConferencesModel {
         }
 
         public Builder setConferencesYear(Map<String, String> conferencesYear) {
-            mConferencesModel.mConferencesYear= conferencesYear;
+            mConferencesModel.mConferencesYear = conferencesYear;
             return this;
         }
 

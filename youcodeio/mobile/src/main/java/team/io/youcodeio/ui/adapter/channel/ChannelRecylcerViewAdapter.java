@@ -4,7 +4,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -14,9 +13,8 @@ import team.io.youcodeio.model.channel.ChannelModel;
 
 /**
  * Created by stevenwatremez on 15/01/16.
- *
  */
-public class ChannelRecylcerViewAdapter  extends RecyclerView.Adapter<ChannelRecylcerViewAdapter.ViewHolder> {
+public class ChannelRecylcerViewAdapter extends RecyclerView.Adapter<ChannelRecylcerViewAdapter.ViewHolder> {
 
 
     /*****************************************************************
@@ -72,6 +70,7 @@ public class ChannelRecylcerViewAdapter  extends RecyclerView.Adapter<ChannelRec
             // TODO logoChannel = (ImageView) itemView.findViewById(R.id.logo_channel);
         }
     }
+
     /*****************************************************************
      * PUBLIC METHOD
      ****************************************************************/

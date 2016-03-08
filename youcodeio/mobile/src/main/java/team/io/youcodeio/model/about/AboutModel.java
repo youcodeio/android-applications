@@ -4,7 +4,6 @@ import java.util.Map;
 
 /**
  * Created by stevenwatremez on 15/01/16.
- *
  */
 public class AboutModel {
 

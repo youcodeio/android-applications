@@ -23,9 +23,8 @@ import team.io.youcodeio.ui.adapter.about.AboutRecyclerViewAdapter;
 
 /**
  * Created by stevenwatremez on 15/01/16.
- *
  */
-public class AboutFragment extends Fragment{
+public class AboutFragment extends Fragment {
 
 
     /*****************************************************************
@@ -94,7 +93,7 @@ public class AboutFragment extends Fragment{
         mAboutRecyclerView.setAdapter(mAdapter);
     }
 
-    private void createFakeAboutdata(){
+    private void createFakeAboutdata() {
         Map<String, String> aboutYearMap = new HashMap<>();
 
         // FIXME DATA 1

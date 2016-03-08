@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 import java.util.Map;
 
@@ -20,9 +18,8 @@ import team.io.youcodeio.model.about.AboutModel;
 
 /**
  * Created by stevenwatremez on 15/01/16.
- *
  */
-public class AboutRecyclerViewAdapter extends RecyclerView.Adapter<AboutRecyclerViewAdapter.ViewHolder>{
+public class AboutRecyclerViewAdapter extends RecyclerView.Adapter<AboutRecyclerViewAdapter.ViewHolder> {
 
 
     @BindString(R.string.about_skill_text)
@@ -94,6 +91,7 @@ public class AboutRecyclerViewAdapter extends RecyclerView.Adapter<AboutRecycler
             menu.add();
         }*/
     }
+
     /*****************************************************************
      * PUBLIC METHOD
      ****************************************************************/

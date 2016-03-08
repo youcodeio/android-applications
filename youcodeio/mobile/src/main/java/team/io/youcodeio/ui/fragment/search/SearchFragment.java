@@ -1,6 +1,5 @@
 package team.io.youcodeio.ui.fragment.search;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -13,16 +12,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import butterknife.Bind;
+
 import butterknife.BindString;
 import butterknife.ButterKnife;
 import team.io.youcodeio.R;
 
 /**
  * Created by stevenwatremez on 10/01/16.
- *
  */
-public class SearchFragment extends Fragment  implements SearchView.OnQueryTextListener{
+public class SearchFragment extends Fragment implements SearchView.OnQueryTextListener {
 
     /*****************************************************************
      * DATA
@@ -101,7 +99,7 @@ public class SearchFragment extends Fragment  implements SearchView.OnQueryTextL
         // workaround to avoid issues with some emulators and keyboard devices firing twice if a keyboard enter is used
         // see https://code.google.com/p/android/issues/detail?id=24599
         mSearchView.clearFocus();
-        Log.e("QUERRY TEXT SUBMIT",query);
+        Log.e("QUERRY TEXT SUBMIT", query);
         return false;
     }
 

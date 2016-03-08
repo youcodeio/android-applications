@@ -1,8 +1,8 @@
 package team.io.youcodeio;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 
@@ -92,7 +92,7 @@ public class HomeActivity extends NavigationLiveo implements OnItemClickListener
                 break;
         }
 
-        if (mFragment != null){
+        if (mFragment != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.container, mFragment).commit();

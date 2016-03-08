@@ -2,11 +2,8 @@ package team.io.youcodeio.model.channel;
 
 import android.graphics.Bitmap;
 
-import java.util.Map;
-
 /**
  * Created by stevenwatremez on 15/01/16.
- *
  */
 public class ChannelModel {
 
