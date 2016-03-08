@@ -13,6 +13,7 @@ import team.io.youcodeio.model.channel.ChannelModel;
 
 /**
  * Created by stevenwatremez on 15/01/16.
+ *
  */
 public class ChannelRecylcerViewAdapter extends RecyclerView.Adapter<ChannelRecylcerViewAdapter.ViewHolder> {
 

@@ -15,6 +15,7 @@ import team.io.youcodeio.model.conferences.ConferencesModel;
 
 /**
  * Created by stevenwatremez on 11/01/16.
+ *
  */
 public class ConferencesRecyclerViewAdapter extends RecyclerView.Adapter<ConferencesRecyclerViewAdapter.ViewHolder> {
 

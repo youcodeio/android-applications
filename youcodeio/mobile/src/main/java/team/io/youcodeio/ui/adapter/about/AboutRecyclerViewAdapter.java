@@ -18,6 +18,7 @@ import team.io.youcodeio.model.about.AboutModel;
 
 /**
  * Created by stevenwatremez on 15/01/16.
+ *
  */
 public class AboutRecyclerViewAdapter extends RecyclerView.Adapter<AboutRecyclerViewAdapter.ViewHolder> {
 

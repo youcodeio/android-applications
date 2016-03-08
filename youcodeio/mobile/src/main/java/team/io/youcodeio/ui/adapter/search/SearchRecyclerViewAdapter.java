@@ -13,6 +13,7 @@ import team.io.youcodeio.model.search.SearchModel;
 
 /**
  * Created by stevenwatremez on 08/03/16.
+ *
  */
 public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecyclerViewAdapter.ViewHolder>{
 

@@ -23,6 +23,7 @@ import team.io.youcodeio.ui.adapter.conferences.ConferencesRecyclerViewAdapter;
 
 /**
  * Created by stevenwatremez on 11/01/16.
+ *
  */
 public class ConferencesFragment extends Fragment {
 
@@ -46,6 +47,7 @@ public class ConferencesFragment extends Fragment {
     /*****************************************************************
      * CONSTRUCTOR
      ****************************************************************/
+    public ConferencesFragment() {}
 
     /*****************************************************************
      * LIFE CYCLE
@@ -57,17 +59,6 @@ public class ConferencesFragment extends Fragment {
         initUI();
         return mRootView;
     }
-    /*****************************************************************
-     * PROTECTED METHOD
-     ****************************************************************/
-
-    /*****************************************************************
-     * IMPLEMENTS METHOD
-     ****************************************************************/
-
-    /*****************************************************************
-     * PUBLIC METHOD
-     ****************************************************************/
 
     /*****************************************************************
      * PRIVATE METHOD
@@ -196,7 +187,4 @@ public class ConferencesFragment extends Fragment {
 
         mListConferencesModel.add(mConferencesModelBuilder.build());
     }
-    /*****************************************************************
-     * INNER CLASS
-     ****************************************************************/
 }

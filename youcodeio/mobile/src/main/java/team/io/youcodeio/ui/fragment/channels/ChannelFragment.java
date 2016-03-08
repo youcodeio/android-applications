@@ -21,6 +21,7 @@ import team.io.youcodeio.ui.adapter.channel.ChannelRecylcerViewAdapter;
 
 /**
  * Created by stevenwatremez on 15/01/16.
+ *
  */
 public class ChannelFragment extends Fragment {
 
@@ -42,9 +43,12 @@ public class ChannelFragment extends Fragment {
 
     @BindString(R.string.drawer_menu_conferences)
     String mConferencesToolbarTitle;
+
     /*****************************************************************
      * CONSTRUCTOR
      ****************************************************************/
+    public ChannelFragment() {
+    }
 
     /*****************************************************************
      * LIFE CYCLE
@@ -56,9 +60,6 @@ public class ChannelFragment extends Fragment {
         initUI();
         return mRootView;
     }
-    /*****************************************************************
-     * PROTECTED METHOD
-     ****************************************************************/
 
     /*****************************************************************
      * PRIVATE METHOD

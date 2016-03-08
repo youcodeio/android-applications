@@ -27,6 +27,7 @@ import team.io.youcodeio.ui.adapter.search.SearchRecyclerViewAdapter;
 
 /**
  * Created by stevenwatremez on 10/01/16.
+ *
  */
 public class SearchFragment extends Fragment implements SearchView.OnQueryTextListener {
 
