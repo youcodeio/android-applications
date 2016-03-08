@@ -1,29 +1,28 @@
-package team.io.youcodeio.model.conferences;
+package team.io.youcodeio.model.search;
 
 import android.support.annotation.NonNull;
-
-import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by stevenwatremez on 08/03/16.
  *
  */
-public class ConferenceSessions {
+public class Search {
 
     /*****************************************************************
      * DATA
      ****************************************************************/
-    @SerializedName("year")
-    public String year;
-
-    @SerializedName("link")
-    public String link;
+    public String id;
+    public String title;
+    public String description;
 
     /*****************************************************************
      * CONSTRUCTOR
      ****************************************************************/
-    public ConferenceSessions(@NonNull final String year, @NonNull final String link) {
-        this.year = year;
-        this.link = link;
+    public Search(@NonNull final String id,
+                  @NonNull final String title,
+                  @NonNull final String description) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
     }
 }

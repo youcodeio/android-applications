@@ -18,7 +18,8 @@ import butterknife.Bind;
 import butterknife.BindString;
 import butterknife.ButterKnife;
 import team.io.youcodeio.R;
-import team.io.youcodeio.model.about.AboutModel;
+import team.io.youcodeio.model.about.About;
+import team.io.youcodeio.model.about.SocialNetwork;
 import team.io.youcodeio.ui.adapter.about.AboutRecyclerViewAdapter;
 
 /**
@@ -34,8 +35,8 @@ public class AboutFragment extends Fragment {
     private View mRootView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private AboutModel.Builder mAboutModelBuilder;
-    private List<AboutModel> mListAboutModel;
+    private About mAbout;
+    private List<About> mListAbout;
 
     /*****************************************************************
      * UI
@@ -81,105 +82,79 @@ public class AboutFragment extends Fragment {
         // FIXME : call the About WS to retrieve the data
         createFakeAboutdata();
 
-        mAdapter = new AboutRecyclerViewAdapter(mListAboutModel);
+        mAdapter = new AboutRecyclerViewAdapter(mListAbout);
         mAboutRecyclerView.setAdapter(mAdapter);
     }
 
     private void createFakeAboutdata() {
-        Map<String, String> aboutYearMap = new HashMap<>();
+        List<SocialNetwork> socialNetworkList = new ArrayList<>();
 
         // FIXME DATA 1
-        mListAboutModel = new ArrayList<>();
-        mAboutModelBuilder = new AboutModel.Builder();
+        mListAbout = new ArrayList<>();
 
-        aboutYearMap.put("2014", "http://youcode.io/#/home");
-        aboutYearMap.put("2015", "http://youcode.io/#/home");
+        socialNetworkList.add(new SocialNetwork("2014", "http://youcode.io/#/home"));
+        socialNetworkList.add(new SocialNetwork("2015", "http://youcode.io/#/home"));
 
-        mAboutModelBuilder
-                .setName("Pierre Zemb")
-                .setSkills("Dev back")
-                .setDescription("Hi! My name is Pierre Zemb, and I'm a French student in a graduate school of engineeringscience called ISEN where I'm currently studying Software Engineering. I'm really enjoying coding in C++, Java or Go and ship them with Docker, but I always end up developping Web apps like this one. Checkout my twitter and my website for more info!")
-                .setSocialNetworkLink(aboutYearMap);
+        mAbout = new About(
+                "1",
+                "Pierre Zemb",
+                "Dev back",
+                "Hi! My name is Pierre Zemb, and I'm a French student in a graduate school of engineeringscience called ISEN where I'm currently studying Software Engineering. I'm really enjoying coding in C++, Java or Go and ship them with Docker, but I always end up developping Web apps like this one. Checkout my twitter and my website for more info!",
+                socialNetworkList);
 
-        mListAboutModel.add(mAboutModelBuilder.build());
+        mListAbout.add(mAbout);
 
 
         // FIXME DATA 2
-        aboutYearMap = new HashMap<>();
-        mAboutModelBuilder = new AboutModel.Builder();
+        mAbout = new About(
+                "2",
+                "Alexis Hellouin",
+                "Dev web front and back",
+                "Hello, my name is Alexis and I am a french student in engineering school. I like web and software development, and also discovering new framework. I'm really enjoying coding in Java, Android and I try new language when I have the time (next is C++). You can check my twitter and linkedIn account for more info!",
+                socialNetworkList);
 
-        aboutYearMap.put("2014", "http://youcode.io/#/home");
-        aboutYearMap.put("2015", "http://youcode.io/#/home");
-
-        mAboutModelBuilder
-                .setName("Alexis Hellouin")
-                .setSkills("Dev web front and back")
-                .setDescription("Hello, my name is Alexis and I am a french student in engineering school. I like web and software development, and also discovering new framework. I'm really enjoying coding in Java, Android and I try new language when I have the time (next is C++). You can check my twitter and linkedIn account for more info!")
-                .setSocialNetworkLink(aboutYearMap);
-
-        mListAboutModel.add(mAboutModelBuilder.build());
+        mListAbout.add(mAbout);
 
 
         // FIXME DATA 3
-        aboutYearMap = new HashMap<>();
-        mAboutModelBuilder = new AboutModel.Builder();
+        mAbout = new About(
+                "3",
+                "Steven Watremez",
+                "Dev web and mobile front",
+                "Hi! My name is Steven Watremez, and I'm a French student too. In same cursus like Pierre and Alexis.I like coding for the web. It is really awesome to inovate and learn new technologies like AngularJS or Polymer. I'm web designer for my extra-activity and I like it. I designed this web app. Checkout my twitter and my website for more info!",
+                socialNetworkList);
 
-        aboutYearMap.put("2014", "http://youcode.io/#/home");
-        aboutYearMap.put("2015", "http://youcode.io/#/home");
-
-        mAboutModelBuilder
-                .setName("Steven Watremez")
-                .setSkills("Dev web and mobile front")
-                .setDescription("Hi! My name is Steven Watremez, and I'm a French student too. In same cursus like Pierre and Alexis.I like coding for the web. It is really awesome to inovate and learn new technologies like AngularJS or Polymer. I'm web designer for my extra-activity and I like it. I designed this web app. Checkout my twitter and my website for more info!")
-                .setSocialNetworkLink(aboutYearMap);
-
-        mListAboutModel.add(mAboutModelBuilder.build());
+        mListAbout.add(mAbout);
 
         // FIXME DATA 4
-        aboutYearMap = new HashMap<>();
-        mAboutModelBuilder = new AboutModel.Builder();
+        mAbout = new About(
+                "4",
+                "Mathieu Sallardon",
+                "Dev web front",
+                "Hi! My name is Mathieu Sallardon, and I'm a French student in a graduate school of engineeringscience called ISEN where I'm currently studying Software Engineering. I'm really enjoying coding in C++, Java or Go and ship them with Docker, but I always end up developping Web apps like this one. Checkout my twitter and my website for more info!",
+                socialNetworkList);
 
-        aboutYearMap.put("2014", "http://youcode.io/#/home");
-        aboutYearMap.put("2015", "http://youcode.io/#/home");
-
-        mAboutModelBuilder
-                .setName("Mathieu Sallardon")
-                .setSkills("Dev web front")
-                .setDescription("Hi! My name is Mathieu Sallardon, and I'm a French student in a graduate school of engineeringscience called ISEN where I'm currently studying Software Engineering. I'm really enjoying coding in C++, Java or Go and ship them with Docker, but I always end up developping Web apps like this one. Checkout my twitter and my website for more info!")
-                .setSocialNetworkLink(aboutYearMap);
-
-        mListAboutModel.add(mAboutModelBuilder.build());
+        mListAbout.add(mAbout);
 
 
         // FIXME DATA 5
-        aboutYearMap = new HashMap<>();
-        mAboutModelBuilder = new AboutModel.Builder();
+        mAbout = new About(
+                "5",
+                "Maxime Caruchet",
+                "Dev back & Devops",
+                "Hello, my name is Maxime Caruchet and I am a french student in engineering school. I like web and software development, and also discovering new framework. I'm really enjoying coding in Java, Android and I try new language when I have the time (next is C++). You can check my twitter and linkedIn account for more info!",
+                socialNetworkList);
 
-        aboutYearMap.put("2014", "http://youcode.io/#/home");
-        aboutYearMap.put("2015", "http://youcode.io/#/home");
-
-        mAboutModelBuilder
-                .setName("Maxime Caruchet")
-                .setSkills("Dev back & Devops")
-                .setDescription("Hello, my name is Maxime Caruchet and I am a french student in engineering school. I like web and software development, and also discovering new framework. I'm really enjoying coding in Java, Android and I try new language when I have the time (next is C++). You can check my twitter and linkedIn account for more info!")
-                .setSocialNetworkLink(aboutYearMap);
-
-        mListAboutModel.add(mAboutModelBuilder.build());
-
+        mListAbout.add(mAbout);
 
         // FIXME DATA 6
-        aboutYearMap = new HashMap<>();
-        mAboutModelBuilder = new AboutModel.Builder();
+        mAbout = new About(
+                "6",
+                "Florian Barreau",
+                "Dev web front",
+                "Hi! My name is Florian Barreau, and I'm a French student too. In same cursus like Pierre and Alexis.I like coding for the web. It is really awesome to inovate and learn new technologies like AngularJS or Polymer. I'm web designer for my extra-activity and I like it. I designed this web app. Checkout my twitter and my website for more info!",
+                socialNetworkList);
 
-        aboutYearMap.put("2014", "http://youcode.io/#/home");
-        aboutYearMap.put("2015", "http://youcode.io/#/home");
-
-        mAboutModelBuilder
-                .setName("Florian Barreau")
-                .setSkills("Dev web front")
-                .setDescription("Hi! My name is Florian Barreau, and I'm a French student too. In same cursus like Pierre and Alexis.I like coding for the web. It is really awesome to inovate and learn new technologies like AngularJS or Polymer. I'm web designer for my extra-activity and I like it. I designed this web app. Checkout my twitter and my website for more info!")
-                .setSocialNetworkLink(aboutYearMap);
-
-        mListAboutModel.add(mAboutModelBuilder.build());
+        mListAbout.add(mAbout);
     }
 }

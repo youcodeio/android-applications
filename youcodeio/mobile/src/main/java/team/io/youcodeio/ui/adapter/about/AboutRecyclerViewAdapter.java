@@ -14,7 +14,7 @@ import java.util.Map;
 import butterknife.BindString;
 import butterknife.ButterKnife;
 import team.io.youcodeio.R;
-import team.io.youcodeio.model.about.AboutModel;
+import team.io.youcodeio.model.about.About;
 
 /**
  * Created by stevenwatremez on 15/01/16.
@@ -29,7 +29,7 @@ public class AboutRecyclerViewAdapter extends RecyclerView.Adapter<AboutRecycler
      * DATA
      ****************************************************************/
     private int mPosition;
-    private List<AboutModel> mItems;
+    private List<About> mItems;
     private int mItemLayout = R.layout.recyclerview_item_about;
     private Map<String, String> mIdToSocialNetworkLink;
 
@@ -37,7 +37,7 @@ public class AboutRecyclerViewAdapter extends RecyclerView.Adapter<AboutRecycler
     /*****************************************************************
      * CONSTRUCTOR
      ****************************************************************/
-    public AboutRecyclerViewAdapter(List<AboutModel> items) {
+    public AboutRecyclerViewAdapter(List<About> items) {
         this.mItems = items;
     }
 
@@ -53,10 +53,10 @@ public class AboutRecyclerViewAdapter extends RecyclerView.Adapter<AboutRecycler
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final AboutModel item = mItems.get(position);
+        final About item = mItems.get(position);
         holder.itemView.setTag(item);
-        holder.name.setText(item.getName());
-        holder.description.setText(Html.fromHtml(String.format(mAboutSkillTextString, item.getSkills(), item.getDescription())));
+        holder.name.setText(item.name);
+        holder.description.setText(String.format(mAboutSkillTextString, item.skills, item.description)); // FIXME : use Spanny lib to concat with different style
     }
 
     @Override
@@ -75,8 +75,8 @@ public class AboutRecyclerViewAdapter extends RecyclerView.Adapter<AboutRecycler
 
         public ViewHolder(View itemView) {
             super(itemView);
-            name = (TextView) itemView.findViewById(R.id.name);
-            description = (TextView) itemView.findViewById(R.id.description);
+            name = (TextView) itemView.findViewById(R.id.about_dev_name);
+            description = (TextView) itemView.findViewById(R.id.about_dev_description);
             menuButton = (ImageButton) itemView.findViewById(R.id.contextual_menu_about);
             // TODO implement Context Menu in Recycler view
             //itemView.setOnCreateContextMenuListener(this);
@@ -85,7 +85,7 @@ public class AboutRecyclerViewAdapter extends RecyclerView.Adapter<AboutRecycler
         /*@Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
             //menuInfo is null
-            for (AboutModel item : mItems) {
+            for (About item : mItems) {
 
             }
             menu.add();

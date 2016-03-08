@@ -10,16 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.BindString;
 import butterknife.ButterKnife;
 import team.io.youcodeio.R;
+import team.io.youcodeio.model.conferences.Conference;
 import team.io.youcodeio.model.conferences.ConferenceSessions;
-import team.io.youcodeio.model.conferences.ConferencesModel;
 import team.io.youcodeio.ui.adapter.conferences.ConferencesRecyclerViewAdapter;
 
 /**
@@ -34,8 +32,8 @@ public class ConferencesFragment extends Fragment {
     private View mRootView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private ConferencesModel.Builder mConferencesModelBuilder;
-    private List<ConferencesModel> mListConferencesModel;
+    private Conference mConference;
+    private List<Conference> mListConferences;
 
     /*****************************************************************
      * UI
@@ -81,87 +79,77 @@ public class ConferencesFragment extends Fragment {
         // FIXME : call the Conference WS to retrieve the data
         createFakeConferencesdata();
 
-        mAdapter = new ConferencesRecyclerViewAdapter(mListConferencesModel);
+        mAdapter = new ConferencesRecyclerViewAdapter(mListConferences);
         mConferencesRecyclerView.setAdapter(mAdapter);
     }
 
     private void createFakeConferencesdata() {
         List<ConferenceSessions> conferenceSessionsList = new ArrayList<>();
-        mListConferencesModel = new ArrayList<>();
+        mListConferences = new ArrayList<>();
 
         // FIXME DATA 1
-        mConferencesModelBuilder = new ConferencesModel.Builder();
-
         conferenceSessionsList.add(new ConferenceSessions("2014", "http://youcode.io/#/home"));
         conferenceSessionsList.add(new ConferenceSessions("2015", "http://youcode.io/#/home"));
 
-        mConferencesModelBuilder
-                .setTitle("Google I/O")
-                .setSubtitle("An annual software developer-focused conference held by Google in San Francisco, California.")
-                .setConferenceSessions(conferenceSessionsList);
+        mConference = new Conference(
+                "1",
+                "Google I/O",
+                "An annual software developer-focused conference held by Google in San Francisco, California.",
+                conferenceSessionsList);
 
-        mListConferencesModel.add(mConferencesModelBuilder.build());
-
+        mListConferences.add(mConference);
 
         // FIXME DATA 2
-        mConferencesModelBuilder = new ConferencesModel.Builder();
+        mConference = new Conference(
+                "1",
+                "Google I/O",
+                "An annual software developer-focused conference held by Google in San Francisco, California.",
+                conferenceSessionsList);
 
-        mConferencesModelBuilder
-                .setTitle("DotGo")
-                .setSubtitle("The European Go conference.")
-                .setConferenceSessions(conferenceSessionsList);
-
-        mListConferencesModel.add(mConferencesModelBuilder.build());
+        mListConferences.add(mConference);
 
 
         // FIXME DATA 3
-        mConferencesModelBuilder = new ConferencesModel.Builder();
+        mConference = new Conference(
+                "1",
+                "Google I/O",
+                "An annual software developer-focused conference held by Google in San Francisco, California.",
+                conferenceSessionsList);
 
-        mConferencesModelBuilder
-                .setTitle("DotJS")
-                .setSubtitle("The European JS conference.")
-                .setConferenceSessions(conferenceSessionsList);
-
-        mListConferencesModel.add(mConferencesModelBuilder.build());
+        mListConferences.add(mConference);
 
         // FIXME DATA 4
-        mConferencesModelBuilder = new ConferencesModel.Builder();
+        mConference = new Conference(
+                "1",
+                "Google I/O",
+                "An annual software developer-focused conference held by Google in San Francisco, California.",
+                conferenceSessionsList);
 
-        mConferencesModelBuilder
-                .setTitle("DotScale")
-                .setSubtitle("The European Tech Conference on Scalability.")
-                .setConferenceSessions(conferenceSessionsList);
-
-        mListConferencesModel.add(mConferencesModelBuilder.build());
+        mListConferences.add(mConference);
 
         // FIXME DATA 5
-        mConferencesModelBuilder = new ConferencesModel.Builder();
+        mConference = new Conference(
+                "1",
+                "Google I/O",
+                "An annual software developer-focused conference held by Google in San Francisco, California.",
+                conferenceSessionsList);
 
-        mConferencesModelBuilder
-                .setTitle("DotScale")
-                .setSubtitle("The European Tech Conference on Scalability.")
-                .setConferenceSessions(conferenceSessionsList);
-
-        mListConferencesModel.add(mConferencesModelBuilder.build());
+        mListConferences.add(mConference);
 
         // FIXME DATA 6
-        mConferencesModelBuilder = new ConferencesModel.Builder();
-
-        mConferencesModelBuilder
-                .setTitle("ng-conf")
-                .setSubtitle("The World's Original Angular Conference.")
-                .setConferenceSessions(conferenceSessionsList);
-
-        mListConferencesModel.add(mConferencesModelBuilder.build());
+        mConference = new Conference(
+                "1",
+                "Google I/O",
+                "An annual software developer-focused conference held by Google in San Francisco, California.",
+                conferenceSessionsList);
+        mListConferences.add(mConference);
 
         // FIXME DATA 7
-        mConferencesModelBuilder = new ConferencesModel.Builder();
-
-        mConferencesModelBuilder
-                .setTitle("FOSDEM")
-                .setSubtitle("OSDEM is a free event for software developers to meet, share ideas and collaborate.")
-                .setConferenceSessions(conferenceSessionsList);
-
-        mListConferencesModel.add(mConferencesModelBuilder.build());
+        mConference = new Conference(
+                "1",
+                "Google I/O",
+                "An annual software developer-focused conference held by Google in San Francisco, California.",
+                conferenceSessionsList);
+        mListConferences.add(mConference);
     }
 }

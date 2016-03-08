@@ -8,11 +8,10 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.List;
-import java.util.Map;
 
 import team.io.youcodeio.R;
+import team.io.youcodeio.model.conferences.Conference;
 import team.io.youcodeio.model.conferences.ConferenceSessions;
-import team.io.youcodeio.model.conferences.ConferencesModel;
 
 /**
  * Created by stevenwatremez on 11/01/16.
@@ -24,7 +23,7 @@ public class ConferencesRecyclerViewAdapter extends RecyclerView.Adapter<Confere
      * DATA
      ****************************************************************/
     private int mPosition;
-    private List<ConferencesModel> mItems;
+    private List<Conference> mItems;
     private int mItemLayout = R.layout.recyclerview_item_conferences;
     private List<ConferenceSessions> mConferenceSessionsList;
 
@@ -32,7 +31,7 @@ public class ConferencesRecyclerViewAdapter extends RecyclerView.Adapter<Confere
     /*****************************************************************
      * CONSTRUCTOR
      ****************************************************************/
-    public ConferencesRecyclerViewAdapter(List<ConferencesModel> items) {
+    public ConferencesRecyclerViewAdapter(List<Conference> items) {
         this.mItems = items;
     }
 
@@ -47,10 +46,10 @@ public class ConferencesRecyclerViewAdapter extends RecyclerView.Adapter<Confere
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final ConferencesModel item = mItems.get(position);
+        final Conference item = mItems.get(position);
         holder.itemView.setTag(item);
-        holder.title.setText(item.getTitle());
-        holder.subtitle.setText(item.getSubtitle());
+        holder.title.setText(item.name);
+        holder.subtitle.setText(item.description);
     }
 
     @Override
@@ -69,8 +68,8 @@ public class ConferencesRecyclerViewAdapter extends RecyclerView.Adapter<Confere
 
         public ViewHolder(View itemView) {
             super(itemView);
-            title = (TextView) itemView.findViewById(R.id.title);
-            subtitle = (TextView) itemView.findViewById(R.id.subtitle);
+            title = (TextView) itemView.findViewById(R.id.conference_title);
+            subtitle = (TextView) itemView.findViewById(R.id.conference_description);
             menuButton = (ImageButton) itemView.findViewById(R.id.contextual_menu_conferences);
             // TODO implement Context Menu in Recycler view
             //itemView.setOnCreateContextMenuListener(this);
@@ -79,7 +78,7 @@ public class ConferencesRecyclerViewAdapter extends RecyclerView.Adapter<Confere
         /*@Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
             //menuInfo is null
-            for (ConferencesModel item : mI) {
+            for (Conference item : mI) {
 
             }
             menu.add();

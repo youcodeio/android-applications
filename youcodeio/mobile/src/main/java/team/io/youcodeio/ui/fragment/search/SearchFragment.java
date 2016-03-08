@@ -22,7 +22,7 @@ import butterknife.Bind;
 import butterknife.BindString;
 import butterknife.ButterKnife;
 import team.io.youcodeio.R;
-import team.io.youcodeio.model.search.SearchModel;
+import team.io.youcodeio.model.search.Search;
 import team.io.youcodeio.ui.adapter.search.SearchRecyclerViewAdapter;
 
 /**
@@ -38,8 +38,8 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
     private SearchView mSearchView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private List<SearchModel> mSearchModelList;
-    private SearchModel.Builder mSearchModelBuilder;
+    private List<Search> mSearchList;
+    private Search mSearch;
 
     /*****************************************************************
      * UI
@@ -144,7 +144,7 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
         // FIXME : call the Conference WS to retrieve the data
         createFakeSearchdata();
 
-        mAdapter = new SearchRecyclerViewAdapter(mSearchModelList);
+        mAdapter = new SearchRecyclerViewAdapter(mSearchList);
         mSearchRecyclerView.setAdapter(mAdapter);
     }
 
@@ -166,33 +166,27 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
 //    }
 
     private void createFakeSearchdata() {
-        mSearchModelList = new ArrayList<>();
+        mSearchList = new ArrayList<>();
 
         // FIXME DATA 1
-        mSearchModelBuilder = new SearchModel.Builder();
-
-        mSearchModelBuilder
-                .setTitle("Titre 1 de la mort qui tue !")
-                .setDescription("Test du titre de la mort qui tue et qui peu rendre trop bien dans ton cul !");
-
-        mSearchModelList.add(mSearchModelBuilder.build());
+        mSearch = new Search(
+                "1",
+                "Titre 1 de la mort qui tue !",
+                "Test du titre de la mort qui tue et qui peu rendre trop bien dans ton cul !");
+        mSearchList.add(mSearch);
 
         // FIXME DATA 2
-        mSearchModelBuilder = new SearchModel.Builder();
-
-        mSearchModelBuilder
-                .setTitle("Titre 2 de la mort qui tue !")
-                .setDescription("Test du titre de la mort qui tue et qui peu rendre trop bien dans ton cul !");
-
-        mSearchModelList.add(mSearchModelBuilder.build());
+        mSearch = new Search(
+                "2",
+                "Titre 2 de la mort qui tue !",
+                "Test du titre de la mort qui tue et qui peu rendre trop bien dans ton cul !");
+        mSearchList.add(mSearch);
 
         // FIXME DATA 3
-        mSearchModelBuilder = new SearchModel.Builder();
-
-        mSearchModelBuilder
-                .setTitle("Titre 3 de la mort qui tue !")
-                .setDescription("Test du titre de la mort qui tue et qui peu rendre trop bien dans ton cul !");
-
-        mSearchModelList.add(mSearchModelBuilder.build());
+        mSearch = new Search(
+                "3",
+                "Titre 3 de la mort qui tue !",
+                "Test du titre de la mort qui tue et qui peu rendre trop bien dans ton cul !");
+        mSearchList.add(mSearch);
     }
 }

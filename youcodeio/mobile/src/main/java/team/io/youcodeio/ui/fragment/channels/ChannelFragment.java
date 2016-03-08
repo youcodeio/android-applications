@@ -16,7 +16,7 @@ import butterknife.Bind;
 import butterknife.BindString;
 import butterknife.ButterKnife;
 import team.io.youcodeio.R;
-import team.io.youcodeio.model.channel.ChannelModel;
+import team.io.youcodeio.model.channel.Channel;
 import team.io.youcodeio.ui.adapter.channel.ChannelRecylcerViewAdapter;
 
 /**
@@ -25,15 +25,14 @@ import team.io.youcodeio.ui.adapter.channel.ChannelRecylcerViewAdapter;
  */
 public class ChannelFragment extends Fragment {
 
-
     /*****************************************************************
      * DATA
      ****************************************************************/
     private View mRootView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private ChannelModel.Builder mChannelModelBuilder;
-    private List<ChannelModel> mListChannelModel;
+    private Channel mChannel;
+    private List<Channel> mListChannel;
 
     /*****************************************************************
      * UI
@@ -41,7 +40,7 @@ public class ChannelFragment extends Fragment {
     @Bind(R.id.conferences_recycler_view)
     RecyclerView mConferencesRecyclerView;
 
-    @BindString(R.string.drawer_menu_conferences)
+    @BindString(R.string.drawer_menu_channels)
     String mConferencesToolbarTitle;
 
     /*****************************************************************
@@ -81,38 +80,32 @@ public class ChannelFragment extends Fragment {
         // FIXME : call the Channel WS to retrieve the data
         createFakeChanneldata();
 
-        mAdapter = new ChannelRecylcerViewAdapter(mListChannelModel);
+        mAdapter = new ChannelRecylcerViewAdapter(mListChannel);
         mConferencesRecyclerView.setAdapter(mAdapter);
     }
 
     private void createFakeChanneldata() {
-        mListChannelModel = new ArrayList<>();
+        mListChannel = new ArrayList<>();
 
         // FIXME DATA 1
-        mChannelModelBuilder = new ChannelModel.Builder();
-
-        mChannelModelBuilder
-                .setTitle("vaadinofficial")
-                .setDescription("This is the official Vaadin channel. We will post our videos, tutorials and webinars through this channel.");
-
-        mListChannelModel.add(mChannelModelBuilder.build());
+        mChannel = new Channel(
+                "1",
+                "vaadinofficial",
+                "This is the official Vaadin channel. We will post our videos, tutorials and webinars through this channel.");
+        mListChannel.add(mChannel);
 
         // FIXME DATA 2
-        mChannelModelBuilder = new ChannelModel.Builder();
-
-        mChannelModelBuilder
-                .setTitle("Docker")
-                .setDescription("Docker is an open platform for developers and SysAdmins to build, ship and run distributed applications.");
-
-        mListChannelModel.add(mChannelModelBuilder.build());
+        mChannel = new Channel(
+                "2",
+                "Docker",
+                "This is the official Vaadin channel. We will post our videos, tutorials and webinars through this channel.");
+        mListChannel.add(mChannel);
 
         // FIXME DATA 3
-        mChannelModelBuilder = new ChannelModel.Builder();
-
-        mChannelModelBuilder
-                .setTitle("Grafikart.fr")
-                .setDescription("Retrouvez un concentré du web autour du monde du développement web et du graphisme...");
-
-        mListChannelModel.add(mChannelModelBuilder.build());
+        mChannel = new Channel(
+                "3",
+                "Grafikart.fr",
+                "This is the official Vaadin channel. We will post our videos, tutorials and webinars through this channel.");
+        mListChannel.add(mChannel);
     }
 }

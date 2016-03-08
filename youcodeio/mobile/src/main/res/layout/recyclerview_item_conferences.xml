@@ -5,7 +5,7 @@
                 android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/conference_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_16dp"
@@ -16,13 +16,13 @@
         tools:text="@string/conferences_title"/>
 
     <TextView
-        android:id="@+id/subtitle"
+        android:id="@+id/conference_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_16dp"
         android:layout_marginStart="@dimen/margin_16dp"
         android:layout_marginEnd="@dimen/margin_56dp"
-        android:layout_below="@id/title"
+        android:layout_below="@id/conference_title"
         android:layout_alignParentStart="true"
         android:textColor="@color/grey"
         android:textSize="@dimen/text_size_13sp"

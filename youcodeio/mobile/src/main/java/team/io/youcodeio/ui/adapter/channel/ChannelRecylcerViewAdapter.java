@@ -9,7 +9,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import team.io.youcodeio.R;
-import team.io.youcodeio.model.channel.ChannelModel;
+import team.io.youcodeio.model.channel.Channel;
 
 /**
  * Created by stevenwatremez on 15/01/16.
@@ -22,14 +22,14 @@ public class ChannelRecylcerViewAdapter extends RecyclerView.Adapter<ChannelRecy
      * DATA
      ****************************************************************/
     private int mPosition;
-    private List<ChannelModel> mItems;
+    private List<Channel> mItems;
     private int mItemLayout = R.layout.recyclerview_item_channel;
 
 
     /*****************************************************************
      * CONSTRUCTOR
      ****************************************************************/
-    public ChannelRecylcerViewAdapter(List<ChannelModel> items) {
+    public ChannelRecylcerViewAdapter(List<Channel> items) {
         this.mItems = items;
     }
 
@@ -44,10 +44,10 @@ public class ChannelRecylcerViewAdapter extends RecyclerView.Adapter<ChannelRecy
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final ChannelModel item = mItems.get(position);
+        final Channel item = mItems.get(position);
         holder.itemView.setTag(item);
-        holder.title.setText(item.getTitle());
-        holder.description.setText(item.getSubtitle());
+        holder.title.setText(item.title);
+        holder.description.setText(item.description);
         // TODO holder.logoChannel.setImageBitmap(item.getLogo());
     }
 
@@ -66,8 +66,8 @@ public class ChannelRecylcerViewAdapter extends RecyclerView.Adapter<ChannelRecy
 
         public ViewHolder(View itemView) {
             super(itemView);
-            title = (TextView) itemView.findViewById(R.id.title);
-            description = (TextView) itemView.findViewById(R.id.description);
+            title = (TextView) itemView.findViewById(R.id.channel_title);
+            description = (TextView) itemView.findViewById(R.id.channel_description);
             // TODO logoChannel = (ImageView) itemView.findViewById(R.id.logo_channel);
         }
     }
