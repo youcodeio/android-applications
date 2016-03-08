@@ -86,6 +86,7 @@ public class ConferencesFragment extends Fragment {
         mLayoutManager = new LinearLayoutManager(getActivity());
         mConferencesRecyclerView.setLayoutManager(mLayoutManager);
 
+        // FIXME : call the Conference WS to retrieve the data
         createFakeConferencesdata();
 
         mAdapter = new ConferencesRecyclerViewAdapter(mListConferencesModel);

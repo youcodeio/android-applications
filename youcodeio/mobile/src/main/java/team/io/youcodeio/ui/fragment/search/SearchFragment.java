@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,9 +15,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
 import butterknife.BindString;
 import butterknife.ButterKnife;
 import team.io.youcodeio.R;
+import team.io.youcodeio.model.search.SearchModel;
+import team.io.youcodeio.ui.adapter.search.SearchRecyclerViewAdapter;
 
 /**
  * Created by stevenwatremez on 10/01/16.
@@ -27,11 +35,18 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
      ****************************************************************/
     private View mRootView;
     private SearchView mSearchView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private List<SearchModel> mSearchModelList;
+    private SearchModel.Builder mSearchModelBuilder;
 
     /*****************************************************************
      * UI
      ****************************************************************/
     private MenuItem mSearchItem;
+
+    @Bind(R.id.search_recycler_view)
+    RecyclerView mSearchRecyclerView;
 
     @BindString(R.string.drawer_menu_search)
     String mSearchToolBarTitle;
@@ -116,6 +131,20 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
         ButterKnife.bind(this, mRootView);
         // set the action Bar title
         getActivity().setTitle(mSearchToolBarTitle);
+
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        mSearchRecyclerView.setHasFixedSize(true);
+
+        // use a linear layout manager
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        mSearchRecyclerView.setLayoutManager(mLayoutManager);
+
+        // FIXME : call the Conference WS to retrieve the data
+        createFakeSearchdata();
+
+        mAdapter = new SearchRecyclerViewAdapter(mSearchModelList);
+        mSearchRecyclerView.setAdapter(mAdapter);
     }
 
 
@@ -135,7 +164,34 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
 //        super.onActivityResult(requestCode, resultCode, data);
 //    }
 
-    /*****************************************************************
-     * INNER CLASS
-     ****************************************************************/
+    private void createFakeSearchdata() {
+        mSearchModelList = new ArrayList<>();
+
+        // FIXME DATA 1
+        mSearchModelBuilder = new SearchModel.Builder();
+
+        mSearchModelBuilder
+                .setTitle("Titre 1 de la mort qui tue !")
+                .setDescription("Test du titre de la mort qui tue et qui peu rendre trop bien dans ton cul !");
+
+        mSearchModelList.add(mSearchModelBuilder.build());
+
+        // FIXME DATA 2
+        mSearchModelBuilder = new SearchModel.Builder();
+
+        mSearchModelBuilder
+                .setTitle("Titre 2 de la mort qui tue !")
+                .setDescription("Test du titre de la mort qui tue et qui peu rendre trop bien dans ton cul !");
+
+        mSearchModelList.add(mSearchModelBuilder.build());
+
+        // FIXME DATA 3
+        mSearchModelBuilder = new SearchModel.Builder();
+
+        mSearchModelBuilder
+                .setTitle("Titre 3 de la mort qui tue !")
+                .setDescription("Test du titre de la mort qui tue et qui peu rendre trop bien dans ton cul !");
+
+        mSearchModelList.add(mSearchModelBuilder.build());
+    }
 }

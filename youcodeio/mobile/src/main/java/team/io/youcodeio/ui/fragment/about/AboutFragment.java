@@ -87,6 +87,7 @@ public class AboutFragment extends Fragment {
         mLayoutManager = new LinearLayoutManager(getActivity());
         mAboutRecyclerView.setLayoutManager(mLayoutManager);
 
+        // FIXME : call the About WS to retrieve the data
         createFakeAboutdata();
 
         mAdapter = new AboutRecyclerViewAdapter(mListAboutModel);

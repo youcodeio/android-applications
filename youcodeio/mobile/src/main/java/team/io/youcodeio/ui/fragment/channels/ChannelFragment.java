@@ -77,6 +77,7 @@ public class ChannelFragment extends Fragment {
         mLayoutManager = new LinearLayoutManager(getActivity());
         mConferencesRecyclerView.setLayoutManager(mLayoutManager);
 
+        // FIXME : call the Channel WS to retrieve the data
         createFakeChanneldata();
 
         mAdapter = new ChannelRecylcerViewAdapter(mListChannelModel);
