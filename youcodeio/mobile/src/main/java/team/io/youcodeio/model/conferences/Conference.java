@@ -39,5 +39,4 @@ public class Conference {
         this.description = description;
         this.sessionsList = sessions;
     }
-
 }

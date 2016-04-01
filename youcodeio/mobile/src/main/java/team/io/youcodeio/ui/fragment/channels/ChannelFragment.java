@@ -1,22 +1,28 @@
 package team.io.youcodeio.ui.fragment.channels;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.BindString;
 import butterknife.ButterKnife;
+import rx.Subscriber;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import team.io.youcodeio.R;
 import team.io.youcodeio.model.channel.Channel;
+import team.io.youcodeio.services.YoucodeServer;
 import team.io.youcodeio.ui.adapter.channel.ChannelRecylcerViewAdapter;
 
 /**
@@ -33,6 +39,7 @@ public class ChannelFragment extends Fragment {
     private RecyclerView.LayoutManager mLayoutManager;
     private Channel mChannel;
     private List<Channel> mListChannel;
+    private Subscription mSubscription;
 
     /*****************************************************************
      * UI
@@ -56,8 +63,17 @@ public class ChannelFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.fragment_conferences, container, false);
+        mSubscription = getChannelObservable();
         initUI();
         return mRootView;
+    }
+
+    @Override
+    public void onDestroy() {
+        if (!mSubscription.isUnsubscribed()) {
+            mSubscription.unsubscribe();
+        }
+        super.onDestroy();
     }
 
     /*****************************************************************
@@ -77,35 +93,54 @@ public class ChannelFragment extends Fragment {
         mLayoutManager = new LinearLayoutManager(getActivity());
         mConferencesRecyclerView.setLayoutManager(mLayoutManager);
 
-        // FIXME : call the Channel WS to retrieve the data
-        createFakeChanneldata();
-
-        mAdapter = new ChannelRecylcerViewAdapter(mListChannel);
-        mConferencesRecyclerView.setAdapter(mAdapter);
+        callTheChannelWebService();
     }
 
-    private void createFakeChanneldata() {
-        mListChannel = new ArrayList<>();
+    private void callTheChannelWebService() {
 
-        // FIXME DATA 1
-        mChannel = new Channel(
-                "1",
-                "vaadinofficial",
-                "This is the official Vaadin channel. We will post our videos, tutorials and webinars through this channel.");
-        mListChannel.add(mChannel);
+    }
 
-        // FIXME DATA 2
-        mChannel = new Channel(
-                "2",
-                "Docker",
-                "This is the official Vaadin channel. We will post our videos, tutorials and webinars through this channel.");
-        mListChannel.add(mChannel);
+    private Subscription getChannelObservable() {
+        return YoucodeServer.getService().getChannels()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(getChannelSubscriber());
+    }
 
-        // FIXME DATA 3
-        mChannel = new Channel(
-                "3",
-                "Grafikart.fr",
-                "This is the official Vaadin channel. We will post our videos, tutorials and webinars through this channel.");
-        mListChannel.add(mChannel);
+    private Subscriber<List<Channel>> getChannelSubscriber() {
+        return new Subscriber<List<Channel>>() {
+            @Override
+            public void onCompleted() {
+                showSuccessSnackBar();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                showErrorSnackBar(e.getMessage());
+            }
+
+            @Override
+            public void onNext(List<Channel> channels) {
+                mAdapter = new ChannelRecylcerViewAdapter(channels);
+                mConferencesRecyclerView.setAdapter(mAdapter);
+                Log.e("CHANNEL WS CALL", channels.toString());
+            }
+        };
+    }
+
+    private void showErrorSnackBar(String message) {
+        Snackbar snackbar = Snackbar.make(mRootView, message, Snackbar.LENGTH_LONG);
+
+        View sbView = snackbar.getView();
+        sbView.setBackgroundColor(Color.RED);
+        snackbar.show();
+    }
+
+    private void showSuccessSnackBar() {
+        Snackbar snackbar = Snackbar.make(mRootView, "Everthing ok", Snackbar.LENGTH_LONG);
+
+        View sbView = snackbar.getView();
+        sbView.setBackgroundColor(Color.GREEN);
+        snackbar.show();
     }
 }

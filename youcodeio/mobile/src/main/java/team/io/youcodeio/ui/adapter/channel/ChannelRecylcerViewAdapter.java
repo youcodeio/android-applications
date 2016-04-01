@@ -47,7 +47,7 @@ public class ChannelRecylcerViewAdapter extends RecyclerView.Adapter<ChannelRecy
         final Channel item = mItems.get(position);
         holder.itemView.setTag(item);
         holder.title.setText(item.title);
-        holder.description.setText(item.description);
+        holder.description.setText(item.youtubeId);
         // TODO holder.logoChannel.setImageBitmap(item.getLogo());
     }
 
