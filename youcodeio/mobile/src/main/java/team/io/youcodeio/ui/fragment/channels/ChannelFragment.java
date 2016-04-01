@@ -63,7 +63,6 @@ public class ChannelFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.fragment_conferences, container, false);
-        mSubscription = getChannelObservable();
         initUI();
         return mRootView;
     }
@@ -93,11 +92,12 @@ public class ChannelFragment extends Fragment {
         mLayoutManager = new LinearLayoutManager(getActivity());
         mConferencesRecyclerView.setLayoutManager(mLayoutManager);
 
+        // TODO : to limit the WS call, use Realm to store in database and retreive during the application life cycle
         callTheChannelWebService();
     }
 
     private void callTheChannelWebService() {
-
+        mSubscription = getChannelObservable();
     }
 
     private Subscription getChannelObservable() {
