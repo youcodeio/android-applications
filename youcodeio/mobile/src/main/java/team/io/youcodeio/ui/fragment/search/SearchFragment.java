@@ -3,40 +3,29 @@ package team.io.youcodeio.ui.fragment.search;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.f2prateek.dart.Dart;
 import com.f2prateek.dart.InjectExtra;
 import com.f2prateek.dart.Nullable;
-import com.f2prateek.dart.Optional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.BindString;
 import butterknife.ButterKnife;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
-import team.io.youcodeio.HomeActivity;
 import team.io.youcodeio.R;
 import team.io.youcodeio.helper.HandleErrorHelper;
 import team.io.youcodeio.model.search.Search;
 import team.io.youcodeio.services.YoucodeServer;
 import team.io.youcodeio.ui.adapter.search.SearchRecyclerViewAdapter;
-import team.io.youcodeio.ui.interfaces.OnClickToValidateSearch;
 
 /**
  * Created by stevenwatremez on 10/01/16.

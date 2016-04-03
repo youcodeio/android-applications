@@ -1,14 +1,21 @@
 package team.io.youcodeio.ui.adapter.search;
 
+import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import br.liveo.ui.RoundedImageView;
 import team.io.youcodeio.R;
+import team.io.youcodeio.helper.HandleErrorHelper;
 import team.io.youcodeio.model.search.Search;
 
 /**
@@ -27,7 +34,7 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
     /*****************************************************************
      * CONSTRUCTOR
      ****************************************************************/
-    public SearchRecyclerViewAdapter(List<Search> items) {
+    public SearchRecyclerViewAdapter(@NonNull final List<Search> items) {
         this.mItems = items;
     }
 
@@ -46,6 +53,11 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
         holder.itemView.setTag(item);
         holder.searchVideotitle.setText(item.snippet.title);
         holder.searchVideoDescription.setText(item.snippet.description);
+        Picasso.with(holder.searchVideoImage.getContext())
+                .load(item.snippet.thumbnails.defaultResolution.url)
+                .placeholder(R.mipmap.ic_launcher_youcodeio)
+                .error(R.mipmap.ic_launcher_youcodeio)
+                .into(holder.searchVideoImage);
     }
 
     @Override
@@ -60,11 +72,13 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
 
         public TextView searchVideotitle;
         public TextView searchVideoDescription;
+        public ImageView searchVideoImage;
 
         public ViewHolder(View itemView) {
             super(itemView);
             searchVideotitle = (TextView) itemView.findViewById(R.id.search_video_title);
             searchVideoDescription = (TextView) itemView.findViewById(R.id.search_video_description);
+            searchVideoImage = (ImageView) itemView.findViewById(R.id.search_video_logo);
         }
     }
 

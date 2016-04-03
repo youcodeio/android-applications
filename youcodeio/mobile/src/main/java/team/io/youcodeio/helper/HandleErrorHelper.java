@@ -6,6 +6,7 @@ import android.view.View;
 
 /**
  * Created by stevenwatremez on 03/04/16.
+ *
  */
 public class HandleErrorHelper {
 

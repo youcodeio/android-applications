@@ -16,6 +16,23 @@ public class VideoFromSearch {
     @SerializedName("description") public String description;
     @SerializedName("publishedAt") public String publishedAt;
     @SerializedName("title") public String title;
+    @SerializedName("thumbnails") public Thumbnail thumbnails;
+
+    public class Thumbnail {
+        @SerializedName("default") public DefaultResolution defaultResolution;
+        @SerializedName("high") public HighResolution highResolution;
+        @SerializedName("medium") public MediumResolution mediumResolution;
+    }
+
+    public class HighResolution {
+        @SerializedName("url") public String url;
+    }
+    public class DefaultResolution {
+        @SerializedName("url") public String url;
+    }
+    public class MediumResolution {
+        @SerializedName("url") public String url;
+    }
 
     /*****************************************************************
      * CONSTRUCTOR
