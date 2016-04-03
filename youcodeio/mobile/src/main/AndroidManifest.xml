@@ -21,6 +21,9 @@
             android:name=".HomeActivity"
             android:label="@style/nLiveoDrawer">
         </activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="dda52416806bd3d1abea84931610c82ee07f891e" />
     </application>
 
 </manifest>
