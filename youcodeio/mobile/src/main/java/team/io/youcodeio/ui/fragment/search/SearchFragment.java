@@ -15,46 +15,71 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.f2prateek.dart.Dart;
+import com.f2prateek.dart.InjectExtra;
+import com.f2prateek.dart.Nullable;
+import com.f2prateek.dart.Optional;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.BindString;
 import butterknife.ButterKnife;
+import rx.Subscriber;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+import team.io.youcodeio.HomeActivity;
 import team.io.youcodeio.R;
+import team.io.youcodeio.helper.HandleErrorHelper;
 import team.io.youcodeio.model.search.Search;
+import team.io.youcodeio.services.YoucodeServer;
 import team.io.youcodeio.ui.adapter.search.SearchRecyclerViewAdapter;
+import team.io.youcodeio.ui.interfaces.OnClickToValidateSearch;
 
 /**
  * Created by stevenwatremez on 10/01/16.
  *
  */
-public class SearchFragment extends Fragment implements SearchView.OnQueryTextListener {
+public class SearchFragment extends Fragment {
+
+    /*****************************************************************
+     * STATIC
+     ****************************************************************/
+    final private static String BUNDLE_QUERY = "BUNDLE_QUERY";
 
     /*****************************************************************
      * DATA
      ****************************************************************/
     private View mRootView;
-    private SearchView mSearchView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private List<Search> mSearchList;
-    private Search mSearch;
+    private Subscription mSubscription;
 
+    @Nullable
+    @InjectExtra(BUNDLE_QUERY)
+    String mQuery;
+
+    public static SearchFragment newInstance(final String query) {
+
+        Bundle args = new Bundle();
+        args.putString(BUNDLE_QUERY, query);
+
+        SearchFragment fragment = new SearchFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
     /*****************************************************************
      * UI
      ****************************************************************/
-    private MenuItem mSearchItem;
-
     @Bind(R.id.search_recycler_view)
     RecyclerView mSearchRecyclerView;
 
     /*****************************************************************
      * CONSTRUCTOR
      ****************************************************************/
-    public SearchFragment() {
-
-    }
+    public SearchFragment() {}
 
     /*****************************************************************
      * LIFE CYCLE
@@ -67,48 +92,12 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
         return mRootView;
     }
 
-    /*****************************************************************
-     * PROTECTED METHOD
-     ****************************************************************/
-   /* @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu_search, menu);
-        mSearchItem = menu.findItem(R.id.action_search);
-        mSearchView = (SearchView) MenuItemCompat.getActionView(mSearchItem);
-        mSearchView.setOnQueryTextListener(this);
-    }
-
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // handle item selection
-        switch (item.getItemId()) {
-            case R.id.action_search:
-                // Handle this selection
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+    public void onDestroy() {
+        if (mSubscription.isUnsubscribed()) {
+            mSubscription.unsubscribe();
         }
-    }
-*/
-    /*****************************************************************
-     * IMPLEMENTS METHODS
-     ****************************************************************/
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        // perform query here
-
-        // workaround to avoid issues with some emulators and keyboard devices firing twice if a keyboard enter is used
-        // see https://code.google.com/p/android/issues/detail?id=24599
-        mSearchView.clearFocus();
-        Log.e("QUERRY TEXT SUBMIT", query);
-        return false;
-    }
-
-    @Override
-    public boolean onQueryTextChange(String newText) {
-        Log.e("QUERRY TEXT CHANGE", newText);
-        return false;
+        super.onDestroy();
     }
 
     /*****************************************************************
@@ -116,6 +105,7 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
      ****************************************************************/
     private void initUI() {
         ButterKnife.bind(this, mRootView);
+        Dart.inject(getActivity());
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
@@ -125,52 +115,41 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
         mLayoutManager = new LinearLayoutManager(getActivity());
         mSearchRecyclerView.setLayoutManager(mLayoutManager);
 
-        // FIXME : call the Conference WS to retrieve the data
-        createFakeSearchdata();
+        if (mQuery != null) {
+            HandleErrorHelper.showSuccessSnackBar(mRootView, mQuery);
+        }
 
-        mAdapter = new SearchRecyclerViewAdapter(mSearchList);
-        mSearchRecyclerView.setAdapter(mAdapter);
+        callSearchWSWithQuery("Android");
     }
 
+    private void callSearchWSWithQuery(final String query) {
+        mSubscription = getSearchSubscription(query);
+    }
 
-//
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        if (requestCode == MaterialSearchView.REQUEST_VOICE ) {
-//            ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-//            if (matches != null && matches.size() > 0) {
-//                String searchWrd = matches.get(0);
-//                if (!TextUtils.isEmpty(searchWrd)) {
-//                    mSearchView.setQuery(searchWrd, false);
-//                }
-//            }
-//            return;
-//        }
-//        super.onActivityResult(requestCode, resultCode, data);
-//    }
+    private Subscription getSearchSubscription(final String query) {
+        return YoucodeServer.getService().launchSearch(query)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(getSearchSubscriber());
+    }
 
-    private void createFakeSearchdata() {
-        mSearchList = new ArrayList<>();
+    private Subscriber<List<Search>> getSearchSubscriber() {
+        return new Subscriber<List<Search>>() {
+            @Override
+            public void onCompleted() {
+                HandleErrorHelper.showSuccessSnackBar(mRootView, "OK");
+            }
 
-        // FIXME DATA 1
-        mSearch = new Search(
-                "1",
-                "Titre 1 de la mort qui tue !",
-                "Test du titre de la mort qui tue et qui peu rendre trop bien dans ton cul !");
-        mSearchList.add(mSearch);
+            @Override
+            public void onError(Throwable e) {
+                HandleErrorHelper.showErrorSnackBar(mRootView, e.getMessage());
+            }
 
-        // FIXME DATA 2
-        mSearch = new Search(
-                "2",
-                "Titre 2 de la mort qui tue !",
-                "Test du titre de la mort qui tue et qui peu rendre trop bien dans ton cul !");
-        mSearchList.add(mSearch);
-
-        // FIXME DATA 3
-        mSearch = new Search(
-                "3",
-                "Titre 3 de la mort qui tue !",
-                "Test du titre de la mort qui tue et qui peu rendre trop bien dans ton cul !");
-        mSearchList.add(mSearch);
+            @Override
+            public void onNext(List<Search> searchList) {
+                mAdapter = new SearchRecyclerViewAdapter(searchList);
+                mSearchRecyclerView.setAdapter(mAdapter);
+            }
+        };
     }
 }

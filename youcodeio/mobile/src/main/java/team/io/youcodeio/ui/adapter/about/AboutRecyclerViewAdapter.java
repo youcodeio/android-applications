@@ -1,10 +1,6 @@
 package team.io.youcodeio.ui.adapter.about;
 
-import android.content.Context;
-import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +8,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindString;
 import butterknife.ButterKnife;
@@ -25,7 +20,6 @@ import team.io.youcodeio.model.about.About;
  */
 public class AboutRecyclerViewAdapter extends RecyclerView.Adapter<AboutRecyclerViewAdapter.ViewHolder> {
 
-
     @BindString(R.string.about_skill_text)
     String mAboutSkillTextString;
     /*****************************************************************
@@ -34,7 +28,6 @@ public class AboutRecyclerViewAdapter extends RecyclerView.Adapter<AboutRecycler
     private int mPosition;
     private List<About> mItems;
     private int mItemLayout = R.layout.recyclerview_item_about;
-    private Map<String, String> mIdToSocialNetworkLink;
 
 
     /*****************************************************************
@@ -107,6 +100,4 @@ public class AboutRecyclerViewAdapter extends RecyclerView.Adapter<AboutRecycler
     public void setPosition(int position) {
         this.mPosition = position;
     }
-
-    // TODO create the Getter of the mIdToSocialNetworkLink Map
 }

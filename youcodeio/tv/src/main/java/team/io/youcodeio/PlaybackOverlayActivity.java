@@ -50,7 +50,7 @@ public class PlaybackOverlayActivity extends Activity implements
         setContentView(R.layout.playback_controls);
         loadViews();
         setupCallbacks();
-        mSession = new MediaSession (this, "LeanbackSampleApp");
+        mSession = new MediaSession(this, "LeanbackSampleApp");
         mSession.setCallback(new MediaSessionCallback());
         mSession.setFlags(MediaSession.FLAG_HANDLES_MEDIA_BUTTONS |
                 MediaSession.FLAG_HANDLES_TRANSPORT_CONTROLS);

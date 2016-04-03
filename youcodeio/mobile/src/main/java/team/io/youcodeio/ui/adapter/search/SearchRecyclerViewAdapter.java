@@ -44,8 +44,8 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Search item = mItems.get(position);
         holder.itemView.setTag(item);
-        holder.searchVideotitle.setText(item.title);
-        holder.searchVideoDescription.setText(item.description);
+        holder.searchVideotitle.setText(item.snippet.title);
+        holder.searchVideoDescription.setText(item.snippet.description);
     }
 
     @Override

@@ -1,9 +1,7 @@
 package team.io.youcodeio.ui.fragment.channels;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,13 +12,13 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.BindString;
 import butterknife.ButterKnife;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import team.io.youcodeio.R;
+import team.io.youcodeio.helper.HandleErrorHelper;
 import team.io.youcodeio.model.channel.Channel;
 import team.io.youcodeio.services.YoucodeServer;
 import team.io.youcodeio.ui.adapter.channel.ChannelRecylcerViewAdapter;
@@ -92,10 +90,10 @@ public class ChannelFragment extends Fragment {
     }
 
     private void callTheChannelWebService() {
-        mSubscription = getChannelObservable();
+        mSubscription = getChannelSubscription();
     }
 
-    private Subscription getChannelObservable() {
+    private Subscription getChannelSubscription() {
         return YoucodeServer.getService().getChannels()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -106,12 +104,13 @@ public class ChannelFragment extends Fragment {
         return new Subscriber<List<Channel>>() {
             @Override
             public void onCompleted() {
-                showSuccessSnackBar();
+                HandleErrorHelper.showSuccessSnackBar(mRootView, "Everything is ok !");
             }
 
             @Override
             public void onError(Throwable e) {
-                showErrorSnackBar(e.getMessage());
+                HandleErrorHelper.showErrorSnackBar(mRootView, e.getMessage());
+                //showErrorSnackBar(e.getMessage());
             }
 
             @Override
@@ -123,19 +122,5 @@ public class ChannelFragment extends Fragment {
         };
     }
 
-    private void showErrorSnackBar(String message) {
-        Snackbar snackbar = Snackbar.make(mRootView, message, Snackbar.LENGTH_LONG);
 
-        View sbView = snackbar.getView();
-        sbView.setBackgroundColor(Color.RED);
-        snackbar.show();
-    }
-
-    private void showSuccessSnackBar() {
-        Snackbar snackbar = Snackbar.make(mRootView, "Everthing ok", Snackbar.LENGTH_LONG);
-
-        View sbView = snackbar.getView();
-        sbView.setBackgroundColor(Color.GREEN);
-        snackbar.show();
-    }
 }

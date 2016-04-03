@@ -69,8 +69,8 @@ public final class MovieList {
     }
 
     private static Movie buildMovieInfo(String category, String title,
-            String description, String studio, String videoUrl, String cardImageUrl,
-            String bgImageUrl) {
+                                        String description, String studio, String videoUrl, String cardImageUrl,
+                                        String bgImageUrl) {
         Movie movie = new Movie();
         movie.setId(Movie.getCount());
         Movie.incCount();
