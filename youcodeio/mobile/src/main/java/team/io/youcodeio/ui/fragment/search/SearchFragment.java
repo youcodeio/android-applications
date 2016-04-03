@@ -49,9 +49,6 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
     @Bind(R.id.search_recycler_view)
     RecyclerView mSearchRecyclerView;
 
-    @BindString(R.string.drawer_menu_search)
-    String mSearchToolBarTitle;
-
     /*****************************************************************
      * CONSTRUCTOR
      ****************************************************************/
@@ -70,21 +67,10 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
         return mRootView;
     }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
-
     /*****************************************************************
      * PROTECTED METHOD
      ****************************************************************/
-    @Override
+   /* @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_search, menu);
@@ -104,7 +90,7 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
                 return super.onOptionsItemSelected(item);
         }
     }
-
+*/
     /*****************************************************************
      * IMPLEMENTS METHODS
      ****************************************************************/
@@ -130,8 +116,6 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
      ****************************************************************/
     private void initUI() {
         ButterKnife.bind(this, mRootView);
-        // set the action Bar title
-        getActivity().setTitle(mSearchToolBarTitle);
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView

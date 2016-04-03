@@ -47,9 +47,6 @@ public class ChannelFragment extends Fragment {
     @Bind(R.id.conferences_recycler_view)
     RecyclerView mConferencesRecyclerView;
 
-    @BindString(R.string.drawer_menu_channels)
-    String mConferencesToolbarTitle;
-
     /*****************************************************************
      * CONSTRUCTOR
      ****************************************************************/
@@ -81,8 +78,6 @@ public class ChannelFragment extends Fragment {
 
     private void initUI() {
         ButterKnife.bind(this, mRootView);
-        // set the action Bar title
-        getActivity().setTitle(mConferencesToolbarTitle);
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView

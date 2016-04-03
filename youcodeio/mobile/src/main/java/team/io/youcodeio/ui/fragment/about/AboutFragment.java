@@ -44,8 +44,6 @@ public class AboutFragment extends Fragment {
     @Bind(R.id.about_recycler_view)
     RecyclerView mAboutRecyclerView;
 
-    @BindString(R.string.drawer_menu_about)
-    String mAboutToolbarTitle;
     /*****************************************************************
      * CONSTRUCTOR
      ****************************************************************/
@@ -68,8 +66,6 @@ public class AboutFragment extends Fragment {
 
     private void initUI() {
         ButterKnife.bind(this, mRootView);
-        // set the action Bar title
-        getActivity().setTitle(mAboutToolbarTitle);
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
