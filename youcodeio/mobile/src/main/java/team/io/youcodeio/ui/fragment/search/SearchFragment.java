@@ -105,6 +105,7 @@ public class SearchFragment extends Fragment {
         mSearchRecyclerView.setLayoutManager(mLayoutManager);
 
         if (mQuery != null) {
+            // FIXME :: use this just for Dev mode Debug because the app crash
             HandleErrorHelper.showSuccessSnackBar(mRootView, mQuery);
         }
 
@@ -126,11 +127,13 @@ public class SearchFragment extends Fragment {
         return new Subscriber<List<Search>>() {
             @Override
             public void onCompleted() {
+                // FIXME :: use this just for Dev mode Debug because the app crash
                 HandleErrorHelper.showSuccessSnackBar(mRootView, "OK");
             }
 
             @Override
             public void onError(Throwable e) {
+                // FIXME :: use this just for Dev mode Debug because the app crash
                 HandleErrorHelper.showErrorSnackBar(mRootView, e.getMessage());
             }
 

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bottomBarItemOne"
+        android:icon="@drawable/ic_people_white_24dp"
+        android:title="One" />
+    <item
+        android:id="@+id/bottomBarItemTwo"
+        android:icon="@drawable/ic_info_white_24dp"
+        android:title="Two" />
+    <item
+        android:id="@+id/bottomBarItemThree"
+        android:icon="@drawable/ic_code_white_24dp"
+        android:title="Three" />
+    <item
+        android:id="@+id/bottomBarItemFour"
+        android:icon="@drawable/ic_tv_white_24dp"
+        android:title="Four" />
+</menu>

@@ -26,6 +26,6 @@ public interface YoucodeAPI {
     @GET("/channels")
     Observable<List<Channel>> getChannels();
 
-    @GET("/query")
+    @GET("/search")
     Observable<List<Search>> launchSearch(@Query("query") String query);
 }

@@ -1,38 +1,47 @@
 package team.io.youcodeio;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
+
+import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.AbsListView;
+import android.widget.FrameLayout;
 
-import com.miguelcatalan.materialsearchview.MaterialSearchView;
+import com.arlib.floatingsearchview.FloatingSearchView;
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnMenuTabClickListener;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import team.io.youcodeio.ui.adapter.Home.HomeViewPagerAdapter;
+import team.io.youcodeio.ui.fragment.about.AboutFragment;
+import team.io.youcodeio.ui.fragment.channels.ChannelFragment;
+import team.io.youcodeio.ui.fragment.conferences.ConferencesFragment;
+import team.io.youcodeio.ui.fragment.search.SearchFragment;
 
-public class HomeActivity extends AppCompatActivity implements MaterialSearchView.OnQueryTextListener, MaterialSearchView.SearchViewListener {
+@TargetApi(Build.VERSION_CODES.M)
+public class HomeActivity extends AppCompatActivity implements View.OnScrollChangeListener {
 
     /****
      * **********************************************************************************************
      * DATA
      * *********************************************************************************************
      ****/
-    private String mQuerry = "";
-    private HomeViewPagerAdapter mHomeViewPagerAdapter;
-
-    private int[] tabIcons = {
-            R.drawable.ic_code_white_24dp,
-            R.drawable.ic_info_white_24dp,
-            R.drawable.ic_people_white_24dp,
-            R.drawable.ic_tv_white_24dp
-    };
+    private BottomBar mBottomBar;
+    private Bundle mSavedInstanceState;
 
     /****
      * **********************************************************************************************
@@ -40,10 +49,8 @@ public class HomeActivity extends AppCompatActivity implements MaterialSearchVie
      * *********************************************************************************************
      ****/
     @Bind(R.id.home_layout) CoordinatorLayout mCoordinatorLayout;
-    @Bind(R.id.toolbar) Toolbar mToolbar;
-    @Bind(R.id.viewpager) ViewPager mViewPager;
-    @Bind(R.id.tabs) TabLayout mTabLayout;
-    @Bind(R.id.search_view) MaterialSearchView mSearchView;
+    @Bind(R.id.fragment_container) FrameLayout mFragmentContainer;
+    @Bind(R.id.floating_search_view) FloatingSearchView mFloatingSearchView;
 
     /****
      * **********************************************************************************************
@@ -53,6 +60,7 @@ public class HomeActivity extends AppCompatActivity implements MaterialSearchVie
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mSavedInstanceState = savedInstanceState;
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
         initUI();
@@ -63,17 +71,26 @@ public class HomeActivity extends AppCompatActivity implements MaterialSearchVie
         getMenuInflater().inflate(R.menu.menu_search, menu);
 
         MenuItem item = menu.findItem(R.id.action_search);
-        mSearchView.setMenuItem(item);
+        //mSearchView.setMenuItem(item);
         return true;
     }
 
     @Override
     public void onBackPressed() {
-        if (mSearchView.isSearchOpen()) {
+        /*if (mSearchView.isSearchOpen()) {
             mSearchView.closeSearch();
         } else {
             super.onBackPressed();
-        }
+        }*/
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        // Necessary to restore the BottomBar's state, otherwise we would
+        // lose the current tab on orientation change.
+        mBottomBar.onSaveInstanceState(outState);
     }
 
     /****
@@ -88,25 +105,39 @@ public class HomeActivity extends AppCompatActivity implements MaterialSearchVie
      * IMPLEMENTS METHODS
      * *********************************************************************************************
      ****/
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        mHomeViewPagerAdapter.setQuery(query);
-        mViewPager.setCurrentItem(0);
-        return false;
-    }
+
+    private static final int HIDE_THRESHOLD = 20;
+    private int scrolledDistance = 0;
+    private boolean controlsVisible = true;
 
     @Override
-    public boolean onQueryTextChange(String newText) {
-        return false;
+    public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+        if (scrolledDistance > HIDE_THRESHOLD && controlsVisible) {
+            hideViews();
+            controlsVisible = false;
+            scrolledDistance = 0;
+        } else if (scrolledDistance < -HIDE_THRESHOLD && !controlsVisible) {
+            showViews();
+            controlsVisible = true;
+            scrolledDistance = 0;
+        }
+
+        if((controlsVisible && scrollY>0) || (!controlsVisible && scrollY<0)) {
+            scrolledDistance += scrollY;
+        }
     }
 
-    @Override
-    public void onSearchViewShown() {
-        mSearchView.setVisibility(View.VISIBLE);
+    private void hideViews() {
+        mFloatingSearchView.animate().translationY(-mFloatingSearchView.getHeight()).setInterpolator(new AccelerateInterpolator(2));
+/*
+        FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) mFabButton.getLayoutParams();
+        int fabBottomMargin = lp.bottomMargin;
+        mFabButton.animate().translationY(mFabButton.getHeight()+fabBottomMargin).setInterpolator(new AccelerateInterpolator(2)).start();*/
     }
 
-    @Override
-    public void onSearchViewClosed() {
+    private void showViews() {
+        mFloatingSearchView.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2));
+        //mFabButton.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
     }
 
     /****
@@ -114,30 +145,66 @@ public class HomeActivity extends AppCompatActivity implements MaterialSearchVie
      * PRIVATE METHODS
      * **********************************************************************************************
      ****/
+    @TargetApi(Build.VERSION_CODES.M)
     private void initUI() {
-        setSupportActionBar(mToolbar);
+        initBottomBar();
 
-        setTitle(""); // delete the title of the toolbar
-        mSearchView.setSuggestions(getResources().getStringArray(R.array.query_suggestions));
-        mSearchView.setOnQueryTextListener(this);
-        mSearchView.setOnSearchViewListener(this);
-
-        setupViewPager(mViewPager);
-        mTabLayout.setupWithViewPager(mViewPager);
-        setupTabIcons();
+        mFragmentContainer.setOnScrollChangeListener(this);
     }
 
-    private void setupViewPager(ViewPager viewPager) {
-        mHomeViewPagerAdapter = new HomeViewPagerAdapter(getSupportFragmentManager());
-        // TODO : use strings.xml
-        mHomeViewPagerAdapter.setupFragmentAndTitle();
-        mHomeViewPagerAdapter.setQuery("");
-        viewPager.setAdapter(mHomeViewPagerAdapter);
-    }
+    private void initBottomBar() {
+        mBottomBar = BottomBar.attachShy(mCoordinatorLayout, mFragmentContainer, mSavedInstanceState);
+        //mBottomBar.setActiveTabColor("#ff3d3d");
+        mBottomBar.setItemsFromMenu(R.menu.menu_bottom_bar, new OnMenuTabClickListener() {
+            @Override
+            public void onMenuTabSelected(@IdRes int menuItemId) {
 
-    private void setupTabIcons() {
-        for (int i = 0; i < tabIcons.length ; i++) {
-            mTabLayout.getTabAt(i).setIcon(tabIcons[i]);
-        }
+                Fragment fragment;
+                switch (menuItemId) {
+                    case R.id.bottomBarItemOne:
+                        fragment = new AboutFragment();
+                        break;
+                    case R.id.bottomBarItemTwo:
+                        fragment = new ChannelFragment();
+                        break;
+                    case R.id.bottomBarItemThree:
+                        fragment = SearchFragment.newInstance("Android");
+                        break;
+                    case R.id.bottomBarItemFour:
+                        fragment = new ConferencesFragment();
+                        break;
+                    default:
+                        fragment = SearchFragment.newInstance("Android");
+                        break;
+                }
+
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, fragment).commit();
+            }
+
+            @Override
+            public void onMenuTabReSelected(@IdRes int menuItemId) {
+                switch (menuItemId) {
+                    case R.id.bottomBarItemOne:
+                        break;
+                    case R.id.bottomBarItemTwo:
+                        break;
+                    case R.id.bottomBarItemThree:
+                        break;
+                    case R.id.bottomBarItemFour:
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+
+        // Setting colors for different tabs when there's more than three of them.
+        // You can set colors for tabs in three different ways as shown below.
+        mBottomBar.mapColorForTab(0, ContextCompat.getColor(this, R.color.colorAccent));
+        mBottomBar.mapColorForTab(1, ContextCompat.getColor(this, R.color.grey));
+        mBottomBar.mapColorForTab(2, ContextCompat.getColor(this, R.color.colorPrimary));
+        mBottomBar.mapColorForTab(3, ContextCompat.getColor(this, R.color.black));
     }
 }
