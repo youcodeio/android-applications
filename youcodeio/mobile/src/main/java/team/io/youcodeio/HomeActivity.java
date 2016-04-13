@@ -1,7 +1,7 @@
 package team.io.youcodeio;
 
-import android.annotation.TargetApi;
-import android.os.Build;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
@@ -10,15 +10,10 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
-import android.widget.AbsListView;
 import android.widget.FrameLayout;
 
 import com.arlib.floatingsearchview.FloatingSearchView;
@@ -32,8 +27,7 @@ import team.io.youcodeio.ui.fragment.channels.ChannelFragment;
 import team.io.youcodeio.ui.fragment.conferences.ConferencesFragment;
 import team.io.youcodeio.ui.fragment.search.SearchFragment;
 
-@TargetApi(Build.VERSION_CODES.M)
-public class HomeActivity extends AppCompatActivity implements View.OnScrollChangeListener {
+public class HomeActivity extends AppCompatActivity {
 
     /****
      * **********************************************************************************************
@@ -54,6 +48,17 @@ public class HomeActivity extends AppCompatActivity implements View.OnScrollChan
 
     /****
      * **********************************************************************************************
+     * STARTER
+     * *********************************************************************************************
+     ****/
+    public static void start(Context context) {
+        Intent starter = new Intent(context, HomeActivity.class);
+        //starter.addFlags(starter.FLAG_ACTIVITY_NO_ANIMATION);
+        context.startActivity(starter);
+    }
+
+    /****
+     * **********************************************************************************************
      * LIFE CYCLE
      * *********************************************************************************************
      ****/
@@ -61,6 +66,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnScrollChan
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mSavedInstanceState = savedInstanceState;
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
         initUI();
@@ -102,55 +108,19 @@ public class HomeActivity extends AppCompatActivity implements View.OnScrollChan
 
     /****
      * **********************************************************************************************
-     * IMPLEMENTS METHODS
-     * *********************************************************************************************
-     ****/
-
-    private static final int HIDE_THRESHOLD = 20;
-    private int scrolledDistance = 0;
-    private boolean controlsVisible = true;
-
-    @Override
-    public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-        if (scrolledDistance > HIDE_THRESHOLD && controlsVisible) {
-            hideViews();
-            controlsVisible = false;
-            scrolledDistance = 0;
-        } else if (scrolledDistance < -HIDE_THRESHOLD && !controlsVisible) {
-            showViews();
-            controlsVisible = true;
-            scrolledDistance = 0;
-        }
-
-        if((controlsVisible && scrollY>0) || (!controlsVisible && scrollY<0)) {
-            scrolledDistance += scrollY;
-        }
-    }
-
-    private void hideViews() {
-        mFloatingSearchView.animate().translationY(-mFloatingSearchView.getHeight()).setInterpolator(new AccelerateInterpolator(2));
-/*
-        FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) mFabButton.getLayoutParams();
-        int fabBottomMargin = lp.bottomMargin;
-        mFabButton.animate().translationY(mFabButton.getHeight()+fabBottomMargin).setInterpolator(new AccelerateInterpolator(2)).start();*/
-    }
-
-    private void showViews() {
-        mFloatingSearchView.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2));
-        //mFabButton.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
-    }
-
-    /****
-     * **********************************************************************************************
      * PRIVATE METHODS
      * **********************************************************************************************
      ****/
-    @TargetApi(Build.VERSION_CODES.M)
     private void initUI() {
         initBottomBar();
-
-        mFragmentContainer.setOnScrollChangeListener(this);
     }
+
+
+    /****
+     * **********************************************************************************************
+     * IMPLEMENTS METHODS
+     * *********************************************************************************************
+     ****/
 
     private void initBottomBar() {
         mBottomBar = BottomBar.attachShy(mCoordinatorLayout, mFragmentContainer, mSavedInstanceState);
