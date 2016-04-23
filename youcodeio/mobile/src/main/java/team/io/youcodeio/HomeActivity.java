@@ -14,14 +14,20 @@ import android.support.v7.app.AppCompatActivity;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.FrameLayout;
 
-import com.arlib.floatingsearchview.FloatingSearchView;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnMenuTabClickListener;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import team.io.youcodeio.ui.activity.AboutActivity;
+import team.io.youcodeio.ui.activity.ChannelsActivity;
+import team.io.youcodeio.ui.activity.ConfActivity;
+import team.io.youcodeio.ui.activity.SearchActivity;
 import team.io.youcodeio.ui.fragment.about.AboutFragment;
 import team.io.youcodeio.ui.fragment.channels.ChannelFragment;
 import team.io.youcodeio.ui.fragment.conferences.ConferencesFragment;
@@ -34,17 +40,23 @@ public class HomeActivity extends AppCompatActivity {
      * DATA
      * *********************************************************************************************
      ****/
-    private BottomBar mBottomBar;
-    private Bundle mSavedInstanceState;
 
     /****
      * **********************************************************************************************
      * UI
      * *********************************************************************************************
      ****/
-    @Bind(R.id.home_layout) CoordinatorLayout mCoordinatorLayout;
-    @Bind(R.id.fragment_container) FrameLayout mFragmentContainer;
-    @Bind(R.id.floating_search_view) FloatingSearchView mFloatingSearchView;
+    @Bind(R.id.about_button)
+    Button aboutButton;
+
+    @Bind(R.id.conf_button)
+    Button confButton;
+
+    @Bind(R.id.channels_button)
+    Button channelsButton;
+
+    @Bind(R.id.search_button)
+    Button searchButton;
 
     /****
      * **********************************************************************************************
@@ -53,7 +65,6 @@ public class HomeActivity extends AppCompatActivity {
      ****/
     public static void start(Context context) {
         Intent starter = new Intent(context, HomeActivity.class);
-        //starter.addFlags(starter.FLAG_ACTIVITY_NO_ANIMATION);
         context.startActivity(starter);
     }
 
@@ -65,7 +76,6 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mSavedInstanceState = savedInstanceState;
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
@@ -73,38 +83,38 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_search, menu);
-
-        MenuItem item = menu.findItem(R.id.action_search);
-        //mSearchView.setMenuItem(item);
-        return true;
-    }
-
-    @Override
     public void onBackPressed() {
-        /*if (mSearchView.isSearchOpen()) {
-            mSearchView.closeSearch();
+        /*if (mMaterialSearchView.isSearchOpen()) {
+            mMaterialSearchView.closeSearch();
         } else {
             super.onBackPressed();
         }*/
     }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        // Necessary to restore the BottomBar's state, otherwise we would
-        // lose the current tab on orientation change.
-        mBottomBar.onSaveInstanceState(outState);
-    }
-
     /****
      * **********************************************************************************************
-     * CONSTRUCTOR
+     * USER INTERACTION METHODS
      * *********************************************************************************************
      ****/
-    public HomeActivity() {}
+    @OnClick(R.id.about_button)
+    public void onClickAboutButton() {
+        AboutActivity.start(this);
+    }
+
+    @OnClick(R.id.conf_button)
+    public void onClickConfButton() {
+        ConfActivity.start(this);
+    }
+
+    @OnClick(R.id.channels_button)
+    public void onClickChannelsButton() {
+        ChannelsActivity.start(this);
+    }
+
+    @OnClick(R.id.search_button)
+    public void onClickSearchButton() {
+        SearchActivity.start(this);
+    }
+
 
     /****
      * **********************************************************************************************
@@ -112,69 +122,7 @@ public class HomeActivity extends AppCompatActivity {
      * **********************************************************************************************
      ****/
     private void initUI() {
-        initBottomBar();
-    }
-
-
-    /****
-     * **********************************************************************************************
-     * IMPLEMENTS METHODS
-     * *********************************************************************************************
-     ****/
-
-    private void initBottomBar() {
-        mBottomBar = BottomBar.attachShy(mCoordinatorLayout, mFragmentContainer, mSavedInstanceState);
-        //mBottomBar.setActiveTabColor("#ff3d3d");
-        mBottomBar.setItemsFromMenu(R.menu.menu_bottom_bar, new OnMenuTabClickListener() {
-            @Override
-            public void onMenuTabSelected(@IdRes int menuItemId) {
-
-                Fragment fragment;
-                switch (menuItemId) {
-                    case R.id.bottomBarItemOne:
-                        fragment = new AboutFragment();
-                        break;
-                    case R.id.bottomBarItemTwo:
-                        fragment = new ChannelFragment();
-                        break;
-                    case R.id.bottomBarItemThree:
-                        fragment = SearchFragment.newInstance("Android");
-                        break;
-                    case R.id.bottomBarItemFour:
-                        fragment = new ConferencesFragment();
-                        break;
-                    default:
-                        fragment = SearchFragment.newInstance("Android");
-                        break;
-                }
-
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragment_container, fragment).commit();
-            }
-
-            @Override
-            public void onMenuTabReSelected(@IdRes int menuItemId) {
-                switch (menuItemId) {
-                    case R.id.bottomBarItemOne:
-                        break;
-                    case R.id.bottomBarItemTwo:
-                        break;
-                    case R.id.bottomBarItemThree:
-                        break;
-                    case R.id.bottomBarItemFour:
-                        break;
-                    default:
-                        break;
-                }
-            }
-        });
-
-        // Setting colors for different tabs when there's more than three of them.
-        // You can set colors for tabs in three different ways as shown below.
-        mBottomBar.mapColorForTab(0, ContextCompat.getColor(this, R.color.colorAccent));
-        mBottomBar.mapColorForTab(1, ContextCompat.getColor(this, R.color.grey));
-        mBottomBar.mapColorForTab(2, ContextCompat.getColor(this, R.color.colorPrimary));
-        mBottomBar.mapColorForTab(3, ContextCompat.getColor(this, R.color.black));
+        //initBottomBar();
+        //mMaterialSearchView.setOnQueryTextListener(this);
     }
 }

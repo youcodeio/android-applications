@@ -22,6 +22,22 @@
             android:name=".HomeActivity"
             android:label="@style/nLiveoDrawer">
         </activity>
+        <activity
+            android:name=".ui.activity.AboutActivity"
+            android:label="@style/nLiveoDrawer">
+        </activity>
+        <activity
+            android:name=".ui.activity.ConfActivity"
+            android:label="@style/nLiveoDrawer">
+        </activity>
+        <activity
+            android:name=".ui.activity.ChannelsActivity"
+            android:label="@style/nLiveoDrawer">
+        </activity>
+        <activity
+            android:name=".ui.activity.SearchActivity"
+            android:label="@style/nLiveoDrawer">
+        </activity>
 
         <meta-data
             android:name="io.fabric.ApiKey"
