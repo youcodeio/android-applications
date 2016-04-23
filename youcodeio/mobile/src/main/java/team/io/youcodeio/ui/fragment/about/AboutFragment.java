@@ -10,12 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.Bind;
-import butterknife.BindString;
 import butterknife.ButterKnife;
 import team.io.youcodeio.R;
 import team.io.youcodeio.model.about.About;
@@ -55,7 +52,7 @@ public class AboutFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.fragment_about, container, false);
+        mRootView = inflater.inflate(R.layout.activity_about, container, false);
         initUI();
         return mRootView;
     }

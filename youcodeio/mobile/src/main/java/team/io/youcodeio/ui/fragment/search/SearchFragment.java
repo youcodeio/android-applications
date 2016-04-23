@@ -76,7 +76,7 @@ public class SearchFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.fragment_search, container, false);
+        mRootView = inflater.inflate(R.layout.activity_search_result, container, false);
         initUI();
         return mRootView;
     }

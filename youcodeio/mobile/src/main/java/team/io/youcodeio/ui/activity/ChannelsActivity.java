@@ -3,15 +3,11 @@ package team.io.youcodeio.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import java.util.List;
 
@@ -22,7 +18,6 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import team.io.youcodeio.R;
-import team.io.youcodeio.helper.HandleErrorHelper;
 import team.io.youcodeio.model.channel.Channel;
 import team.io.youcodeio.services.YoucodeServer;
 import team.io.youcodeio.ui.adapter.channel.ChannelRecylcerViewAdapter;
@@ -61,7 +56,7 @@ public class ChannelsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_conferences);
+        setContentView(R.layout.activity_about);
         ButterKnife.bind(this);
         initUI();
     }

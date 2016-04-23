@@ -3,35 +3,20 @@ package team.io.youcodeio;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CoordinatorLayout;
-
-import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 
 import android.support.v7.app.AppCompatActivity;
 
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Button;
-import android.widget.FrameLayout;
-
-import com.miguelcatalan.materialsearchview.MaterialSearchView;
-import com.roughike.bottombar.BottomBar;
-import com.roughike.bottombar.OnMenuTabClickListener;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import team.io.youcodeio.ui.activity.AboutActivity;
 import team.io.youcodeio.ui.activity.ChannelsActivity;
-import team.io.youcodeio.ui.activity.ConfActivity;
-import team.io.youcodeio.ui.activity.SearchActivity;
-import team.io.youcodeio.ui.fragment.about.AboutFragment;
-import team.io.youcodeio.ui.fragment.channels.ChannelFragment;
-import team.io.youcodeio.ui.fragment.conferences.ConferencesFragment;
-import team.io.youcodeio.ui.fragment.search.SearchFragment;
+import team.io.youcodeio.ui.activity.ConferencesActivity;
+import team.io.youcodeio.ui.activity.SearchPropositionsActivity;
+import team.io.youcodeio.ui.activity.SearchResultActivity;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -102,7 +87,7 @@ public class HomeActivity extends AppCompatActivity {
 
     @OnClick(R.id.conf_button)
     public void onClickConfButton() {
-        ConfActivity.start(this);
+        ConferencesActivity.start(this);
     }
 
     @OnClick(R.id.channels_button)
@@ -112,7 +97,7 @@ public class HomeActivity extends AppCompatActivity {
 
     @OnClick(R.id.search_button)
     public void onClickSearchButton() {
-        SearchActivity.start(this);
+        SearchPropositionsActivity.start(this);
     }
 
 

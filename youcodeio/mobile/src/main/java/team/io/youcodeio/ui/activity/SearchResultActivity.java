@@ -1,15 +1,15 @@
 package team.io.youcodeio.ui.activity;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.os.PersistableBundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.f2prateek.dart.Dart;
 import com.f2prateek.dart.InjectExtra;
-import com.f2prateek.dart.Nullable;
 
 import java.util.List;
 
@@ -20,7 +20,6 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import team.io.youcodeio.R;
-import team.io.youcodeio.helper.HandleErrorHelper;
 import team.io.youcodeio.model.search.Search;
 import team.io.youcodeio.services.YoucodeServer;
 import team.io.youcodeio.ui.adapter.search.SearchRecyclerViewAdapter;
@@ -29,12 +28,12 @@ import team.io.youcodeio.ui.adapter.search.SearchRecyclerViewAdapter;
  * Created by steven_watremez on 23/04/16.
  *
  */
-public class SearchActivity extends AppCompatActivity {
+public class SearchResultActivity extends Activity {
 
     /*****************************************************************
      * STATIC
      ****************************************************************/
-    final private static String BUNDLE_QUERY = "BUNDLE_QUERY";
+    final private static String BUNDLE_QUERY_TEXT_TEST = "BUNDLE_QUERY_TEXT_TEST";
 
     /*****************************************************************
      * DATA
@@ -42,6 +41,9 @@ public class SearchActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private Subscription mSubscription;
+
+    @InjectExtra(BUNDLE_QUERY_TEXT_TEST)
+    String mQuery;
 
     /*****************************************************************
      * UI
@@ -52,17 +54,23 @@ public class SearchActivity extends AppCompatActivity {
     /*****************************************************************
      * STARTER
      ****************************************************************/
-    public static void start(Context context) {
-        Intent starter = new Intent(context, SearchActivity.class);
+    public static void start(@NonNull final Activity context, @NonNull final String query) {
+        Intent starter = new Intent(context, SearchResultActivity.class);
+        starter.putExtra(BUNDLE_QUERY_TEXT_TEST, query);
         context.startActivity(starter);
     }
-    /*****************************************************************
+
+    /*
+     *****************************************************************
      * LIFE CYCLE
-     ****************************************************************/
+     ***************************************************************
+     */
+
     @Override
-    protected void onCreate(@android.support.annotation.Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_search);
+        Dart.inject(this);
+        setContentView(R.layout.activity_search_result);
         ButterKnife.bind(this);
         initUI();
     }
@@ -88,7 +96,9 @@ public class SearchActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mSearchRecyclerView.setLayoutManager(mLayoutManager);
 
-        callSearchWSWithQuery("Android");
+        Bundle bundle = getIntent().getExtras(); // getArguments() for a Fragment
+        String query = Dart.get(bundle, BUNDLE_QUERY_TEXT_TEST); // User implements Parcelable
+        callSearchWSWithQuery(query);
     }
 
     private void callSearchWSWithQuery(final String query) {

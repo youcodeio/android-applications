@@ -57,7 +57,7 @@ public class ChannelFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.fragment_conferences, container, false);
+        mRootView = inflater.inflate(R.layout.activity_conferences, container, false);
         initUI();
         return mRootView;
     }

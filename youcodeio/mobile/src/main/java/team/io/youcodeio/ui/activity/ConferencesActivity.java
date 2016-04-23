@@ -3,14 +3,10 @@ package team.io.youcodeio.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +22,7 @@ import team.io.youcodeio.ui.adapter.conferences.ConferencesRecyclerViewAdapter;
  * Created by steven_watremez on 23/04/16.
  *
  */
-public class ConfActivity extends AppCompatActivity {
+public class ConferencesActivity extends AppCompatActivity {
 
     /*****************************************************************
      * DATA
@@ -46,7 +42,7 @@ public class ConfActivity extends AppCompatActivity {
      * STARTER
      ****************************************************************/
     public static void start(Context context) {
-        Intent starter = new Intent(context, ConfActivity.class);
+        Intent starter = new Intent(context, ConferencesActivity.class);
         context.startActivity(starter);
     }
 
@@ -56,7 +52,7 @@ public class ConfActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_conferences);
+        setContentView(R.layout.activity_conferences);
         ButterKnife.bind(this);
         initUI();
     }

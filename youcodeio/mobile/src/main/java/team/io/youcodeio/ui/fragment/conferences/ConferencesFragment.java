@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.BindString;
 import butterknife.ButterKnife;
 import team.io.youcodeio.R;
 import team.io.youcodeio.model.conferences.Conference;
@@ -52,7 +51,7 @@ public class ConferencesFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.fragment_conferences, container, false);
+        mRootView = inflater.inflate(R.layout.activity_conferences, container, false);
         initUI();
         return mRootView;
     }
