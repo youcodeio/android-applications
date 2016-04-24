@@ -1,81 +1,75 @@
-package team.io.youcodeio.ui.activity.channels;
+package team.io.youcodeio.ui.fragment.channels;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import team.io.youcodeio.R;
+import team.io.youcodeio.helper.HandleErrorHelper;
 import team.io.youcodeio.model.channel.Channel;
 import team.io.youcodeio.services.YoucodeServer;
-import team.io.youcodeio.ui.activity.AbsActivity;
 import team.io.youcodeio.ui.adapter.channel.ChannelRecylcerViewAdapter;
-import team.io.youcodeio.ui.adapter.channel.ChannelsPagerAdapter;
 
 /**
- * Created by steven_watremez on 23/04/16.
+ * Created by stevenwatremez on 15/01/16.
  *
  */
-public class ChannelsActivity extends AbsActivity {
+public class ChannelTutsFragment extends Fragment {
+
     /*****************************************************************
      * DATA
      ****************************************************************/
+    private View mRootView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private Channel mChannel;
     private List<Channel> mListChannel;
     private Subscription mSubscription;
-    FragmentPagerAdapter adapterViewPager;
 
     /*****************************************************************
      * UI
      ****************************************************************/
-    @Bind(R.id.vpPager)
-    ViewPager mChannelsViewPager;
+    @Bind(R.id.channels_recycler_view)
+    RecyclerView mChannelsRecyclerView;
+
+    public static ChannelTutsFragment newInstance() {
+        ChannelTutsFragment fragment = new ChannelTutsFragment();
+        return fragment;
+    }
 
     /*****************************************************************
-     * STARTER
+     * CONSTRUCTOR
      ****************************************************************/
-    public static void start(Context context) {
-        Intent starter = new Intent(context, ChannelsActivity.class);
-        context.startActivity(starter);
+    public ChannelTutsFragment() {
     }
 
     /*****************************************************************
      * LIFE CYCLE
      ****************************************************************/
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        mRootView = inflater.inflate(R.layout.fragment_channel, container, false);
         initUI();
-    }
-
-    @Override
-    protected int setLayout() {
-        return R.layout.activity_channel;
-    }
-
-    @Override
-    protected String setToolbarTitle() {
-        return getString(R.string.drawer_menu_channels);
+        return mRootView;
     }
 
     @Override
     public void onDestroy() {
-        if (mSubscription != null && !mSubscription.isUnsubscribed()) {
+        if (!mSubscription.isUnsubscribed()) {
             mSubscription.unsubscribe();
         }
         super.onDestroy();
@@ -86,46 +80,18 @@ public class ChannelsActivity extends AbsActivity {
      ****************************************************************/
 
     private void initUI() {
+        ButterKnife.bind(this, mRootView);
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
-        /*mChannelsRecyclerView.setHasFixedSize(true);
+        mChannelsRecyclerView.setHasFixedSize(true);
 
         // use a linear layout manager
-        mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager = new LinearLayoutManager(getActivity());
         mChannelsRecyclerView.setLayoutManager(mLayoutManager);
 
         // TODO : to limit the WS call, use Realm to store in database and retreive during the application life cycle
         callTheChannelWebService();
-*/
-/*
-        adapterViewPager = new ChannelsPagerAdapter(getSupportFragmentManager());
-        mChannelsViewPager.setAdapter(adapterViewPager);*/
-
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Talks"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tuts"));
-
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.vpPager);
-        final ChannelsPagerAdapter adapter = new ChannelsPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
-        viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
     }
 
     private void callTheChannelWebService() {
@@ -143,22 +109,23 @@ public class ChannelsActivity extends AbsActivity {
         return new Subscriber<List<Channel>>() {
             @Override
             public void onCompleted() {
-
+                HandleErrorHelper.showSuccessSnackBar(mRootView, "Everything is ok !");
             }
 
             @Override
             public void onError(Throwable e) {
-
-
+                HandleErrorHelper.showErrorSnackBar(mRootView, e.getMessage());
+                //showErrorSnackBar(e.getMessage());
             }
 
             @Override
             public void onNext(List<Channel> channels) {
-                //mAdapter = new ChannelRecylcerViewAdapter(channels);
-                //mChannelsRecyclerView.setAdapter(mAdapter);
+                mAdapter = new ChannelRecylcerViewAdapter(channels);
+                mChannelsRecyclerView.setAdapter(mAdapter);
                 Log.e("CHANNEL WS CALL", channels.toString());
             }
         };
     }
+
 
 }

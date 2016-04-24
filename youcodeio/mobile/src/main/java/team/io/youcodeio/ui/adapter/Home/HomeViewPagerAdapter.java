@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import team.io.youcodeio.ui.fragment.about.AboutFragment;
-import team.io.youcodeio.ui.fragment.channels.ChannelFragment;
+import team.io.youcodeio.ui.fragment.channels.ChannelTutsFragment;
 import team.io.youcodeio.ui.fragment.conferences.ConferencesFragment;
 import team.io.youcodeio.ui.fragment.search.SearchFragment;
 
@@ -49,7 +49,7 @@ public class HomeViewPagerAdapter extends FragmentPagerAdapter {
                 fragment = new ConferencesFragment();
                 break;
             case 3:
-                fragment = new ChannelFragment();
+                fragment = new ChannelTutsFragment();
                 break;
         }
         return fragment;
@@ -68,7 +68,7 @@ public class HomeViewPagerAdapter extends FragmentPagerAdapter {
         addFragment(new SearchFragment(), "Search");
         addFragment(new AboutFragment(), "About");
         addFragment(new ConferencesFragment(), "Conferences");
-        addFragment(new ChannelFragment(), "Channels");
+        addFragment(new ChannelTutsFragment(), "Channels");
     }
 
     public void addFragment(Fragment fragment, String title) {

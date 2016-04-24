@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import java.util.List;
 
 import butterknife.Bind;
@@ -27,7 +28,7 @@ import team.io.youcodeio.ui.adapter.channel.ChannelRecylcerViewAdapter;
  * Created by stevenwatremez on 15/01/16.
  *
  */
-public class ChannelFragment extends Fragment {
+public class ChannelTalksFragment extends Fragment {
 
     /*****************************************************************
      * DATA
@@ -42,13 +43,18 @@ public class ChannelFragment extends Fragment {
     /*****************************************************************
      * UI
      ****************************************************************/
-    @Bind(R.id.conferences_recycler_view)
-    RecyclerView mConferencesRecyclerView;
+    @Bind(R.id.channels_recycler_view)
+    RecyclerView mChannelsRecyclerView;
+
+    public static ChannelTalksFragment newInstance() {
+        ChannelTalksFragment fragment = new ChannelTalksFragment();
+        return fragment;
+    }
 
     /*****************************************************************
      * CONSTRUCTOR
      ****************************************************************/
-    public ChannelFragment() {
+    public ChannelTalksFragment() {
     }
 
     /*****************************************************************
@@ -57,7 +63,7 @@ public class ChannelFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.activity_conferences, container, false);
+        mRootView = inflater.inflate(R.layout.fragment_channel, container, false);
         initUI();
         return mRootView;
     }
@@ -79,11 +85,11 @@ public class ChannelFragment extends Fragment {
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
-        mConferencesRecyclerView.setHasFixedSize(true);
+        mChannelsRecyclerView.setHasFixedSize(true);
 
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(getActivity());
-        mConferencesRecyclerView.setLayoutManager(mLayoutManager);
+        mChannelsRecyclerView.setLayoutManager(mLayoutManager);
 
         // TODO : to limit the WS call, use Realm to store in database and retreive during the application life cycle
         callTheChannelWebService();
@@ -116,7 +122,7 @@ public class ChannelFragment extends Fragment {
             @Override
             public void onNext(List<Channel> channels) {
                 mAdapter = new ChannelRecylcerViewAdapter(channels);
-                mConferencesRecyclerView.setAdapter(mAdapter);
+                mChannelsRecyclerView.setAdapter(mAdapter);
                 Log.e("CHANNEL WS CALL", channels.toString());
             }
         };
