@@ -6,7 +6,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.EditText;
 
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Length;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -17,7 +21,14 @@ import team.io.youcodeio.ui.activity.AbsActivity;
  * Created by steven_watremez on 23/04/16.
  *
  */
-public class SearchPropositionsActivity extends AbsActivity {
+public class SearchPropositionsActivity extends AbsActivity implements Validator.ValidationListener{
+
+    /*
+     *****************************************************************
+     * DATA
+     ***************************************************************
+     */
+    private Validator mValidator;
 
     /*
      *****************************************************************
@@ -46,6 +57,7 @@ public class SearchPropositionsActivity extends AbsActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setupValidator();
     }
 
     /*
@@ -55,7 +67,7 @@ public class SearchPropositionsActivity extends AbsActivity {
      */
     @OnClick(R.id.search_submit_button)
     public void onClickSubmit() {
-        SearchResultActivity.start(this, mSearchEditText.getText().toString());
+        mValidator.validate();
     }
 
     @OnClick(R.id.search_first_button)
@@ -86,5 +98,27 @@ public class SearchPropositionsActivity extends AbsActivity {
     @Override
     protected String setToolbarTitle() {
         return "Search";
+    }
+
+    @Override
+    public void onValidationSucceeded() {
+        SearchResultActivity.start(this, mSearchEditText.getText().toString());
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        for (ValidationError error : errors) {
+            ((EditText) error.getView()).setError(error.getCollatedErrorMessage(this));
+        }
+    }
+
+    /*
+     *****************************************************************
+     * PRIVATE METHODS
+     ***************************************************************
+     */
+    private void setupValidator() {
+        mValidator = new Validator(this);
+        mValidator.setValidationListener(this);
     }
 }

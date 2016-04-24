@@ -29,22 +29,16 @@ import team.io.youcodeio.ui.adapter.channel.ChannelsPagerAdapter;
  * Created by steven_watremez on 23/04/16.
  *
  */
-public class ChannelsActivity extends AbsActivity {
-    /*****************************************************************
-     * DATA
-     ****************************************************************/
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-    private Channel mChannel;
-    private List<Channel> mListChannel;
-    private Subscription mSubscription;
-    FragmentPagerAdapter adapterViewPager;
+public class ChannelsActivity extends AbsActivity implements TabLayout.OnTabSelectedListener {
 
     /*****************************************************************
      * UI
      ****************************************************************/
     @Bind(R.id.vpPager)
     ViewPager mChannelsViewPager;
+
+    @Bind(R.id.tab_layout)
+    TabLayout mTabLayout;
 
     /*****************************************************************
      * STARTER
@@ -73,92 +67,34 @@ public class ChannelsActivity extends AbsActivity {
         return getString(R.string.drawer_menu_channels);
     }
 
-    @Override
-    public void onDestroy() {
-        if (mSubscription != null && !mSubscription.isUnsubscribed()) {
-            mSubscription.unsubscribe();
-        }
-        super.onDestroy();
-    }
-
     /*****************************************************************
      * PRIVATE METHOD
      ****************************************************************/
-
     private void initUI() {
+        mTabLayout.addTab(mTabLayout.newTab().setText("Talks"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("Tuts"));
 
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        /*mChannelsRecyclerView.setHasFixedSize(true);
-
-        // use a linear layout manager
-        mLayoutManager = new LinearLayoutManager(this);
-        mChannelsRecyclerView.setLayoutManager(mLayoutManager);
-
-        // TODO : to limit the WS call, use Realm to store in database and retreive during the application life cycle
-        callTheChannelWebService();
-*/
-/*
-        adapterViewPager = new ChannelsPagerAdapter(getSupportFragmentManager());
-        mChannelsViewPager.setAdapter(adapterViewPager);*/
-
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Talks"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tuts"));
-
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.vpPager);
-        final ChannelsPagerAdapter adapter = new ChannelsPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
-        viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
+        final ChannelsPagerAdapter adapter = new ChannelsPagerAdapter(getSupportFragmentManager(), mTabLayout.getTabCount());
+        mChannelsViewPager.setAdapter(adapter);
+        mChannelsViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
+        mTabLayout.setOnTabSelectedListener(this);
     }
 
-    private void callTheChannelWebService() {
-        mSubscription = getChannelSubscription();
+    /*****************************************************************
+     * IMPLEMENTS METHODS
+     ****************************************************************/
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+        mChannelsViewPager.setCurrentItem(tab.getPosition());
     }
 
-    private Subscription getChannelSubscription() {
-        return YoucodeServer.getService().getChannels()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(getChannelSubscriber());
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+
     }
 
-    private Subscriber<List<Channel>> getChannelSubscriber() {
-        return new Subscriber<List<Channel>>() {
-            @Override
-            public void onCompleted() {
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
 
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-
-            }
-
-            @Override
-            public void onNext(List<Channel> channels) {
-                //mAdapter = new ChannelRecylcerViewAdapter(channels);
-                //mChannelsRecyclerView.setAdapter(mAdapter);
-                Log.e("CHANNEL WS CALL", channels.toString());
-            }
-        };
     }
-
 }

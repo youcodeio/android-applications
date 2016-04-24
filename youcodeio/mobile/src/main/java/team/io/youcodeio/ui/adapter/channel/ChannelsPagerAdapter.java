@@ -14,36 +14,38 @@ import team.io.youcodeio.ui.fragment.channels.ChannelTutsFragment;
  */
 public class ChannelsPagerAdapter extends FragmentPagerAdapter {
 
-        private static int mNumberOfPage;
+    /*****************************************************************
+     * DATA
+     ****************************************************************/
+    private static int mNumberOfPage;
 
-        public ChannelsPagerAdapter(@NonNull final FragmentManager fragmentManager, @NonNull final int numberOfPage) {
-            super(fragmentManager);
-            mNumberOfPage = numberOfPage;
+    /*****************************************************************
+     * CONSTRUCTOR
+     ****************************************************************/
+    public ChannelsPagerAdapter(@NonNull final FragmentManager fragmentManager, final int numberOfPage) {
+        super(fragmentManager);
+        mNumberOfPage = numberOfPage;
+    }
+
+    /*****************************************************************
+     * OVERRIDE METHODS
+     ****************************************************************/
+    // Returns total number of pages
+    @Override
+    public int getCount() {
+        return mNumberOfPage;
+    }
+
+    // Returns the fragment to display for that page
+    @Override
+    public Fragment getItem(int position) {
+        switch (position) {
+            case 0: // Fragment # 0
+                return ChannelTalksFragment.newInstance();
+            case 1: // Fragment # 1
+                return ChannelTutsFragment.newInstance();
+            default:
+                return null;
         }
-
-        // Returns total number of pages
-        @Override
-        public int getCount() {
-            return mNumberOfPage;
-        }
-
-        // Returns the fragment to display for that page
-        @Override
-        public Fragment getItem(int position) {
-            switch (position) {
-                case 0: // Fragment # 0 - This will show FirstFragment
-                    return ChannelTalksFragment.newInstance();
-                case 1: // Fragment # 0 - This will show FirstFragment different title
-                    return ChannelTutsFragment.newInstance();
-                default:
-                    return null;
-            }
-        }
-
-        // Returns the page title for the top indicator
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return "Page " + position;
-        }
-
+    }
 }

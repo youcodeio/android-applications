@@ -25,12 +25,9 @@ import team.io.youcodeio.ui.activity.about.TeamDetailActivity;
  */
 public class AboutRecyclerViewAdapter extends RecyclerView.Adapter<AboutRecyclerViewAdapter.ViewHolder> {
 
-    @BindString(R.string.about_skill_text)
-    String mAboutSkillTextString;
     /*****************************************************************
      * DATA
      ****************************************************************/
-    private int mPosition;
     private List<About> mItems;
     private int mItemLayout = R.layout.recyclerview_item_about;
     public Context mContext;
@@ -89,26 +86,12 @@ public class AboutRecyclerViewAdapter extends RecyclerView.Adapter<AboutRecycler
             mItem = item;
             itemView.setTag(item);
             name.setText(item.name);
-            description.setText(item.description);
             description.setText(String.format("%s - %s", item.skills, item.description));
         }
 
         @Override
         public void onClick(View view) {
             TeamDetailActivity.start(mContext, mItem);
-            //Toast.makeText(mContext,"The Item Clicked is: "+ getAdapterPosition() + " :: " + mItem,Toast.LENGTH_SHORT).show();
         }
-    }
-
-    /*****************************************************************
-     * PUBLIC METHOD
-     ****************************************************************/
-
-    public int getPosition() {
-        return mPosition;
-    }
-
-    public void setPosition(int position) {
-        this.mPosition = position;
     }
 }

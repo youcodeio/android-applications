@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -81,11 +83,9 @@ public class ChannelTutsFragment extends Fragment {
 
     private void initUI() {
         ButterKnife.bind(this, mRootView);
-
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         mChannelsRecyclerView.setHasFixedSize(true);
-
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(getActivity());
         mChannelsRecyclerView.setLayoutManager(mLayoutManager);
@@ -109,18 +109,25 @@ public class ChannelTutsFragment extends Fragment {
         return new Subscriber<List<Channel>>() {
             @Override
             public void onCompleted() {
-                HandleErrorHelper.showSuccessSnackBar(mRootView, "Everything is ok !");
+
             }
 
             @Override
             public void onError(Throwable e) {
-                HandleErrorHelper.showErrorSnackBar(mRootView, e.getMessage());
-                //showErrorSnackBar(e.getMessage());
+
             }
 
             @Override
             public void onNext(List<Channel> channels) {
-                mAdapter = new ChannelRecylcerViewAdapter(channels);
+                List<Channel> channelList = new ArrayList<>();
+
+                for (Channel channel : channels) {
+                    if (channel.isTuts) {
+                        channelList.add(channel);
+                    }
+                }
+
+                mAdapter = new ChannelRecylcerViewAdapter(channelList, getContext());
                 mChannelsRecyclerView.setAdapter(mAdapter);
                 Log.e("CHANNEL WS CALL", channels.toString());
             }

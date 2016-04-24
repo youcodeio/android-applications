@@ -22,25 +22,28 @@
         </activity>
         <activity
             android:name=".HomeActivity"
-            android:label="@style/AppTheme"></activity>
+            android:label="@style/AppTheme"/>
         <activity
             android:name=".ui.activity.about.AboutActivity"
-            android:label="@style/AppTheme"></activity>
+            android:label="@style/AppTheme"/>
         <activity
             android:name=".ui.activity.conferences.ConferencesActivity"
-            android:label="@style/AppTheme"></activity>
+            android:label="@style/AppTheme"/>
         <activity
             android:name=".ui.activity.channels.ChannelsActivity"
-            android:label="@style/AppTheme"></activity>
+            android:label="@style/AppTheme"/>
         <activity
             android:name=".ui.activity.search.SearchResultActivity"
-            android:label="@style/AppTheme"></activity>
+            android:label="@style/AppTheme"/>
         <activity
             android:name=".ui.activity.search.SearchPropositionsActivity"
-            android:label="@style/AppTheme"></activity>
+            android:label="@style/AppTheme"/>
         <activity
             android:name=".ui.activity.about.TeamDetailActivity"
-            android:label="@style/AppTheme"></activity>
+            android:label="@style/AppTheme"/>
+        <activity
+            android:name=".ui.activity.channels.ChannelLatestVideosActivity"
+            android:label="@style/AppTheme"/>
 
         <meta-data
             android:name="io.fabric.ApiKey"
