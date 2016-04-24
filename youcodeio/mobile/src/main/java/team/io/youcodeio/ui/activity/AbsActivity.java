@@ -1,6 +1,5 @@
 package team.io.youcodeio.ui.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
@@ -14,7 +13,6 @@ import com.f2prateek.dart.Dart;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import team.io.youcodeio.R;
 
 /**
@@ -28,7 +26,6 @@ public abstract class AbsActivity extends AppCompatActivity {
      * UI
      ***************************************************************
      */
-    protected Activity mParent = this;
 
     @Bind(R.id.toolbar)
     Toolbar mCustomToolbar;

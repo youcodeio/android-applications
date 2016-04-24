@@ -13,7 +13,6 @@ import com.f2prateek.dart.InjectExtra;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -21,13 +20,14 @@ import rx.schedulers.Schedulers;
 import team.io.youcodeio.R;
 import team.io.youcodeio.model.search.Search;
 import team.io.youcodeio.services.YoucodeServer;
+import team.io.youcodeio.ui.activity.AbsActivity;
 import team.io.youcodeio.ui.adapter.search.SearchRecyclerViewAdapter;
 
 /**
  * Created by steven_watremez on 23/04/16.
  *
  */
-public class SearchResultActivity extends Activity {
+public class SearchResultActivity extends AbsActivity {
 
     /*****************************************************************
      * STATIC
@@ -69,9 +69,19 @@ public class SearchResultActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Dart.inject(this);
-        setContentView(R.layout.activity_search_result);
-        ButterKnife.bind(this);
         initUI();
+    }
+
+    @Override
+    protected int setLayout() {
+        return R.layout.activity_search_result;
+    }
+
+    @Override
+    protected String setToolbarTitle() {
+        Bundle bundle = getIntent().getExtras(); // getArguments() for a Fragment
+        mQuery = Dart.get(bundle, BUNDLE_QUERY_TEXT_TEST); // User implements Parcelable
+        return mQuery;
     }
 
     @Override
@@ -95,9 +105,7 @@ public class SearchResultActivity extends Activity {
         mLayoutManager = new LinearLayoutManager(this);
         mSearchRecyclerView.setLayoutManager(mLayoutManager);
 
-        Bundle bundle = getIntent().getExtras(); // getArguments() for a Fragment
-        String query = Dart.get(bundle, BUNDLE_QUERY_TEXT_TEST); // User implements Parcelable
-        callSearchWSWithQuery(query);
+        callSearchWSWithQuery(mQuery);
     }
 
     private void callSearchWSWithQuery(final String query) {
@@ -125,7 +133,7 @@ public class SearchResultActivity extends Activity {
 
             @Override
             public void onNext(List<Search> searchList) {
-                mAdapter = new SearchRecyclerViewAdapter(searchList);
+                mAdapter = new SearchRecyclerViewAdapter(searchList, SearchResultActivity.this);
                 mSearchRecyclerView.setAdapter(mAdapter);
             }
         };

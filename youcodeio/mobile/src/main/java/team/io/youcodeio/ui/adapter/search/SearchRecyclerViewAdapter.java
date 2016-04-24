@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -16,6 +17,7 @@ import java.util.List;
 import br.liveo.ui.RoundedImageView;
 import team.io.youcodeio.R;
 import team.io.youcodeio.helper.HandleErrorHelper;
+import team.io.youcodeio.model.conferences.Conference;
 import team.io.youcodeio.model.search.Search;
 
 /**
@@ -27,15 +29,16 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
     /*****************************************************************
      * DATA
      ****************************************************************/
-    private int mPosition;
     private List<Search> mItems;
     private int mItemLayout = R.layout.recyclerview_item_search;
+    private Context mContext;
 
     /*****************************************************************
      * CONSTRUCTOR
      ****************************************************************/
-    public SearchRecyclerViewAdapter(@NonNull final List<Search> items) {
+    public SearchRecyclerViewAdapter(@NonNull final List<Search> items, @NonNull final Context context) {
         this.mItems = items;
+        mContext = context;
     }
 
     /*****************************************************************
@@ -44,20 +47,13 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
     @Override
     public SearchRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(mItemLayout, parent, false);
-        return new ViewHolder(v);
+        return new ViewHolder(v, mContext);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Search item = mItems.get(position);
-        holder.itemView.setTag(item);
-        holder.searchVideotitle.setText(item.snippet.title);
-        holder.searchVideoDescription.setText(item.snippet.description);
-        Picasso.with(holder.searchVideoImage.getContext())
-                .load(item.snippet.thumbnails.defaultResolution.url)
-                .placeholder(R.mipmap.ic_launcher_youcodeio)
-                .error(R.mipmap.ic_launcher_youcodeio)
-                .into(holder.searchVideoImage);
+        holder.setItem(item);
     }
 
     @Override
@@ -68,29 +64,40 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
     /*****************************************************************
      * INNER CLASS
      ****************************************************************/
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView searchVideotitle;
         public TextView searchVideoDescription;
         public ImageView searchVideoImage;
+        private Context mContext;
+        private Search mItem;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(@NonNull final View itemView, @NonNull final Context context) {
             super(itemView);
+            itemView.setClickable(true);
+            itemView.setOnClickListener(this);
+            mContext = context;
             searchVideotitle = (TextView) itemView.findViewById(R.id.search_video_title);
             searchVideoDescription = (TextView) itemView.findViewById(R.id.search_video_description);
             searchVideoImage = (ImageView) itemView.findViewById(R.id.search_video_logo);
         }
-    }
 
-    /*****************************************************************
-     * PUBLIC METHOD
-     ****************************************************************/
+        public void setItem(Search item) {
+            mItem = item;
+            itemView.setTag(item);
+            searchVideotitle.setText(item.snippet.title);
+            searchVideoDescription.setText(item.snippet.description);
+            Picasso.with(searchVideoImage.getContext())
+                    .load(item.snippet.thumbnails.defaultResolution.url)
+                    .placeholder(R.mipmap.ic_launcher_youcodeio)
+                    .error(R.mipmap.ic_launcher_youcodeio)
+                    .into(searchVideoImage);
+        }
 
-    public int getPosition() {
-        return mPosition;
-    }
-
-    public void setPosition(int position) {
-        this.mPosition = position;
+        @Override
+        public void onClick(View view) {
+            //ChannelLatestVideosActivity.start(mContext, mItem);
+            Toast.makeText(mContext, "implement click", Toast.LENGTH_SHORT).show();
+        }
     }
 }

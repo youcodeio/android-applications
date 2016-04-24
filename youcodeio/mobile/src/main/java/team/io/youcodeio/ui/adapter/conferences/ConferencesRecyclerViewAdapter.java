@@ -1,11 +1,14 @@
 package team.io.youcodeio.ui.adapter.conferences;
 
+import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -22,17 +25,16 @@ public class ConferencesRecyclerViewAdapter extends RecyclerView.Adapter<Confere
     /*****************************************************************
      * DATA
      ****************************************************************/
-    private int mPosition;
     private List<Conference> mItems;
     private int mItemLayout = R.layout.recyclerview_item_conferences;
-    private List<ConferenceSessions> mConferenceSessionsList;
-
+    private Context mContext;
 
     /*****************************************************************
      * CONSTRUCTOR
      ****************************************************************/
-    public ConferencesRecyclerViewAdapter(List<Conference> items) {
+    public ConferencesRecyclerViewAdapter(@NonNull final List<Conference> items, @NonNull final Context context) {
         this.mItems = items;
+        mContext = context;
     }
 
     /*****************************************************************
@@ -41,15 +43,13 @@ public class ConferencesRecyclerViewAdapter extends RecyclerView.Adapter<Confere
     @Override
     public ConferencesRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(mItemLayout, parent, false);
-        return new ViewHolder(v);
+        return new ViewHolder(v, mContext);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Conference item = mItems.get(position);
-        holder.itemView.setTag(item);
-        holder.title.setText(item.name);
-        holder.subtitle.setText(item.description);
+        holder.setItem(item);
     }
 
     @Override
@@ -60,43 +60,32 @@ public class ConferencesRecyclerViewAdapter extends RecyclerView.Adapter<Confere
     /*****************************************************************
      * INNER CLASS
      ****************************************************************/
-    // TODO need to implements View.OnCreateContextMenuListener
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView title;
         public TextView subtitle;
-        public ImageButton menuButton;
+        private Conference mItem;
+        private Context mContext;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(@NonNull final View itemView, @NonNull final Context context) {
             super(itemView);
+            itemView.setClickable(true);
+            itemView.setOnClickListener(this);
+            mContext = context;
             title = (TextView) itemView.findViewById(R.id.conference_title);
             subtitle = (TextView) itemView.findViewById(R.id.conference_description);
-            menuButton = (ImageButton) itemView.findViewById(R.id.contextual_menu_conferences);
-            // TODO implement Context Menu in Recycler view
-            //itemView.setOnCreateContextMenuListener(this);
         }
 
-        /*@Override
-        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-            //menuInfo is null
-            for (Conference item : mI) {
+        public void setItem(Conference item) {
+            mItem = item;
+            itemView.setTag(item);
+            title.setText(item.name);
+            subtitle.setText(item.description);
+        }
 
-            }
-            menu.add();
-            menu.add();
-        }*/
+        @Override
+        public void onClick(View view) {
+            //ChannelLatestVideosActivity.start(mContext, mItem);
+            Toast.makeText(mContext, "implement click", Toast.LENGTH_SHORT).show();
+        }
     }
-
-    /*****************************************************************
-     * PUBLIC METHOD
-     ****************************************************************/
-
-    public int getPosition() {
-        return mPosition;
-    }
-
-    public void setPosition(int position) {
-        this.mPosition = position;
-    }
-
-    // TODO create the Getter of the mIdToConferencesYear Map
 }

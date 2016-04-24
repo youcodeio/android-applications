@@ -21,21 +21,22 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import team.io.youcodeio.R;
+import team.io.youcodeio.model.channel.Channel;
 import team.io.youcodeio.model.search.Search;
-import team.io.youcodeio.model.search.VideoFromSearch;
 import team.io.youcodeio.services.YoucodeServer;
+import team.io.youcodeio.ui.activity.AbsActivity;
 import team.io.youcodeio.ui.adapter.search.SearchRecyclerViewAdapter;
 
 /**
  * Created by steven_watremez on 24/04/16.
  *
  */
-public class ChannelLatestVideosActivity extends AppCompatActivity {
+public class ChannelLatestVideosActivity extends AbsActivity {
 
     /*****************************************************************
      * STATIC
      ****************************************************************/
-    final private static String BUNDLE_CHANNEL_ID = "BUNDLE_CHANNEL_ID";
+    final private static String BUNDLE_CHANNEL = "BUNDLE_CHANNEL";
 
     /*****************************************************************
      * DATA
@@ -43,9 +44,10 @@ public class ChannelLatestVideosActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private Subscription mSubscription;
+    private String mChannelTitle;
 
-    @InjectExtra(BUNDLE_CHANNEL_ID)
-    String mChannelId;
+    @InjectExtra(BUNDLE_CHANNEL)
+    Channel mChannel;
 
     /*****************************************************************
      * UI
@@ -56,9 +58,9 @@ public class ChannelLatestVideosActivity extends AppCompatActivity {
     /*****************************************************************
      * STARTER
      ****************************************************************/
-    public static void start(@NonNull final  Context context, final String channelId) {
+    public static void start(@NonNull final  Context context, @NonNull final Channel channel) {
         Intent starter = new Intent(context, ChannelLatestVideosActivity.class);
-        starter.putExtra(BUNDLE_CHANNEL_ID ,channelId);
+        starter.putExtra(BUNDLE_CHANNEL ,channel);
         context.startActivity(starter);
     }
 
@@ -68,10 +70,20 @@ public class ChannelLatestVideosActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_channel_latest_videos);
-        ButterKnife.bind(this);
         Dart.inject(this);
         initUI();
+    }
+
+    @Override
+    protected int setLayout() {
+        return R.layout.activity_channel_latest_videos;
+    }
+
+    @Override
+    protected String setToolbarTitle() {
+        Bundle bundle = getIntent().getExtras(); // getArguments() for a Fragment
+        mChannel = Dart.get(bundle, BUNDLE_CHANNEL); // User implements Parcelable
+        return mChannel.title;
     }
 
     private void initUI() {
@@ -83,9 +95,7 @@ public class ChannelLatestVideosActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mChannelLatestVideosRecyclerView.setLayoutManager(mLayoutManager);
 
-        Bundle bundle = getIntent().getExtras(); // getArguments() for a Fragment
-        mChannelId = Dart.get(bundle, BUNDLE_CHANNEL_ID); // User implements Parcelable
-        callChannelWSWithChannelId(mChannelId);
+        callChannelWSWithChannelId(mChannel.youtubeId);
     }
 
     private void callChannelWSWithChannelId(final String channelId) {
@@ -113,7 +123,7 @@ public class ChannelLatestVideosActivity extends AppCompatActivity {
 
             @Override
             public void onNext(List<Search> searchList) {
-                mAdapter = new SearchRecyclerViewAdapter(searchList);
+                mAdapter = new SearchRecyclerViewAdapter(searchList, ChannelLatestVideosActivity.this);
                 mChannelLatestVideosRecyclerView.setAdapter(mAdapter);
             }
         };

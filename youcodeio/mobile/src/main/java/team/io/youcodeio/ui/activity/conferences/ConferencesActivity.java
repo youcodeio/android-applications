@@ -81,7 +81,7 @@ public class ConferencesActivity extends AbsActivity {
         // FIXME : call the Conference WS to retrieve the data
         createFakeConferencesdata();
 
-        mAdapter = new ConferencesRecyclerViewAdapter(mListConferences);
+        mAdapter = new ConferencesRecyclerViewAdapter(mListConferences, this);
         mConferencesRecyclerView.setAdapter(mAdapter);
     }
 

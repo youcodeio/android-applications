@@ -60,7 +60,7 @@ public class ChannelRecylcerViewAdapter extends RecyclerView.Adapter<ChannelRecy
     /*****************************************************************
      * INNER CLASS
      ****************************************************************/
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView title;
         public TextView description;
         public Context mContext;
@@ -87,7 +87,7 @@ public class ChannelRecylcerViewAdapter extends RecyclerView.Adapter<ChannelRecy
 
         @Override
         public void onClick(View view) {
-            ChannelLatestVideosActivity.start(mContext, mItem.youtubeId);
+            ChannelLatestVideosActivity.start(mContext, mItem);
         }
     }
 }
