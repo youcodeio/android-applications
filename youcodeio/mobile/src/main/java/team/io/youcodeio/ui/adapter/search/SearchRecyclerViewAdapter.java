@@ -64,7 +64,7 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
     /*****************************************************************
      * INNER CLASS
      ****************************************************************/
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
         public TextView searchVideotitle;
         public TextView searchVideoDescription;
@@ -76,10 +76,17 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
             super(itemView);
             itemView.setClickable(true);
             itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
             mContext = context;
             searchVideotitle = (TextView) itemView.findViewById(R.id.search_video_title);
             searchVideoDescription = (TextView) itemView.findViewById(R.id.search_video_description);
             searchVideoImage = (ImageView) itemView.findViewById(R.id.search_video_logo);
+            itemView.findViewById(R.id.smMenuViewLeft).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(mContext, "left menu view onclick", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
 
         public void setItem(Search item) {
@@ -98,6 +105,12 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
         public void onClick(View view) {
             //ChannelLatestVideosActivity.start(mContext, mItem);
             Toast.makeText(mContext, "implement click", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public boolean onLongClick(View view) {
+            Toast.makeText(mContext, "implement Long click", Toast.LENGTH_SHORT).show();
+            return true;
         }
     }
 }
