@@ -1,10 +1,9 @@
-package team.io.youcodeio.ui.activity;
+package team.io.youcodeio.ui.activity.channels;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,7 +11,6 @@ import android.util.Log;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -20,6 +18,7 @@ import rx.schedulers.Schedulers;
 import team.io.youcodeio.R;
 import team.io.youcodeio.model.channel.Channel;
 import team.io.youcodeio.services.YoucodeServer;
+import team.io.youcodeio.ui.activity.AbsActivity;
 import team.io.youcodeio.ui.adapter.channel.ChannelRecylcerViewAdapter;
 
 /**

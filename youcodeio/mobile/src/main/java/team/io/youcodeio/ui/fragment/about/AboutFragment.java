@@ -75,7 +75,7 @@ public class AboutFragment extends Fragment {
         // FIXME : call the About WS to retrieve the data
         createFakeAboutdata();
 
-        mAdapter = new AboutRecyclerViewAdapter(mListAbout);
+        mAdapter = new AboutRecyclerViewAdapter(mListAbout, getContext());
         mAboutRecyclerView.setAdapter(mAdapter);
     }
 

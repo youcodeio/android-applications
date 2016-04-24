@@ -23,23 +23,27 @@
             android:label="@style/AppTheme">
         </activity>
         <activity
-            android:name=".ui.activity.AboutActivity"
+            android:name=".ui.activity.about.AboutActivity"
             android:label="@style/AppTheme">
         </activity>
         <activity
-            android:name=".ui.activity.ConferencesActivity"
+            android:name=".ui.activity.conferences.ConferencesActivity"
             android:label="@style/AppTheme">
         </activity>
         <activity
-            android:name=".ui.activity.ChannelsActivity"
+            android:name=".ui.activity.channels.ChannelsActivity"
             android:label="@style/AppTheme">
         </activity>
         <activity
-            android:name=".ui.activity.SearchResultActivity"
+            android:name=".ui.activity.search.SearchResultActivity"
             android:label="@style/AppTheme">
         </activity>
         <activity
-            android:name=".ui.activity.SearchPropositionsActivity"
+            android:name=".ui.activity.search.SearchPropositionsActivity"
+            android:label="@style/AppTheme">
+        </activity>
+        <activity
+            android:name=".ui.activity.about.TeamDetailActivity"
             android:label="@style/AppTheme">
         </activity>
 

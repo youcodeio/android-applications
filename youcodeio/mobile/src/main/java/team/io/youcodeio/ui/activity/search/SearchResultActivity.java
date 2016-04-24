@@ -1,9 +1,8 @@
-package team.io.youcodeio.ui.activity;
+package team.io.youcodeio.ui.activity.search;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;

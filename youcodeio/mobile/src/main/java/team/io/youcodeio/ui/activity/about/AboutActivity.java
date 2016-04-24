@@ -1,4 +1,4 @@
-package team.io.youcodeio.ui.activity;
+package team.io.youcodeio.ui.activity.about;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +16,7 @@ import butterknife.Bind;
 import team.io.youcodeio.R;
 import team.io.youcodeio.model.about.About;
 import team.io.youcodeio.model.about.SocialNetwork;
+import team.io.youcodeio.ui.activity.AbsActivity;
 import team.io.youcodeio.ui.adapter.about.AboutRecyclerViewAdapter;
 
 /**
@@ -81,8 +84,9 @@ public class AboutActivity extends AbsActivity {
         // FIXME : call the About WS to retrieve the data
         createFakeAboutdata();
 
-        mAdapter = new AboutRecyclerViewAdapter(mListAbout);
+        mAdapter = new AboutRecyclerViewAdapter(mListAbout, this);
         mAboutRecyclerView.setAdapter(mAdapter);
+
     }
 
     private void createFakeAboutdata() {

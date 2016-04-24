@@ -1,10 +1,9 @@
-package team.io.youcodeio.ui.activity;
+package team.io.youcodeio.ui.activity.conferences;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -12,10 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import team.io.youcodeio.R;
 import team.io.youcodeio.model.conferences.Conference;
 import team.io.youcodeio.model.conferences.ConferenceSessions;
+import team.io.youcodeio.ui.activity.AbsActivity;
 import team.io.youcodeio.ui.adapter.conferences.ConferencesRecyclerViewAdapter;
 
 /**

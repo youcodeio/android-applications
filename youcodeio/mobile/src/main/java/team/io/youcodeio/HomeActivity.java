@@ -12,11 +12,10 @@ import android.widget.Button;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import team.io.youcodeio.ui.activity.AboutActivity;
-import team.io.youcodeio.ui.activity.ChannelsActivity;
-import team.io.youcodeio.ui.activity.ConferencesActivity;
-import team.io.youcodeio.ui.activity.SearchPropositionsActivity;
-import team.io.youcodeio.ui.activity.SearchResultActivity;
+import team.io.youcodeio.ui.activity.about.AboutActivity;
+import team.io.youcodeio.ui.activity.channels.ChannelsActivity;
+import team.io.youcodeio.ui.activity.conferences.ConferencesActivity;
+import team.io.youcodeio.ui.activity.search.SearchPropositionsActivity;
 
 public class HomeActivity extends AppCompatActivity {
 

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_margin="@dimen/margin_16dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/about_team_detail_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:fontFamily="sans-serif-light"
+        android:textColor="#000"
+        tools:text="Steven Watremez"/>
+
+    <TextView
+        android:id="@+id/about_team_detail_description_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:textColor="#000"
+        tools:text="@string/about_team_detail_description"/>
+
+</LinearLayout>

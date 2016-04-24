@@ -1,4 +1,4 @@
-package team.io.youcodeio.ui.activity;
+package team.io.youcodeio.ui.activity.search;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,7 @@ import com.mobsandgeeks.saripaar.annotation.Length;
 import butterknife.Bind;
 import butterknife.OnClick;
 import team.io.youcodeio.R;
+import team.io.youcodeio.ui.activity.AbsActivity;
 
 /**
  * Created by steven_watremez on 23/04/16.
