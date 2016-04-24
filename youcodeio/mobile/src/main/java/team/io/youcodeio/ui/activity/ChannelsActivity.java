@@ -26,7 +26,7 @@ import team.io.youcodeio.ui.adapter.channel.ChannelRecylcerViewAdapter;
  * Created by steven_watremez on 23/04/16.
  *
  */
-public class ChannelsActivity extends AppCompatActivity {
+public class ChannelsActivity extends AbsActivity {
     /*****************************************************************
      * DATA
      ****************************************************************/
@@ -39,8 +39,8 @@ public class ChannelsActivity extends AppCompatActivity {
     /*****************************************************************
      * UI
      ****************************************************************/
-    @Bind(R.id.conferences_recycler_view)
-    RecyclerView mConferencesRecyclerView;
+    @Bind(R.id.channel_recycler_view)
+    RecyclerView mChannelsRecyclerView;
 
     /*****************************************************************
      * STARTER
@@ -56,9 +56,17 @@ public class ChannelsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about);
-        ButterKnife.bind(this);
         initUI();
+    }
+
+    @Override
+    protected int setLayout() {
+        return R.layout.activity_channel;
+    }
+
+    @Override
+    protected String setToolbarTitle() {
+        return getString(R.string.drawer_menu_channels);
     }
 
     @Override
@@ -77,11 +85,11 @@ public class ChannelsActivity extends AppCompatActivity {
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
-        mConferencesRecyclerView.setHasFixedSize(true);
+        mChannelsRecyclerView.setHasFixedSize(true);
 
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(this);
-        mConferencesRecyclerView.setLayoutManager(mLayoutManager);
+        mChannelsRecyclerView.setLayoutManager(mLayoutManager);
 
         // TODO : to limit the WS call, use Realm to store in database and retreive during the application life cycle
         callTheChannelWebService();
@@ -114,7 +122,7 @@ public class ChannelsActivity extends AppCompatActivity {
             @Override
             public void onNext(List<Channel> channels) {
                 mAdapter = new ChannelRecylcerViewAdapter(channels);
-                mConferencesRecyclerView.setAdapter(mAdapter);
+                mChannelsRecyclerView.setAdapter(mAdapter);
                 Log.e("CHANNEL WS CALL", channels.toString());
             }
         };

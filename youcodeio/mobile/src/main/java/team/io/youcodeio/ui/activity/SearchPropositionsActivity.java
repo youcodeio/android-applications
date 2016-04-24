@@ -4,7 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.widget.EditText;
 
+import com.mobsandgeeks.saripaar.annotation.Length;
+
+import butterknife.Bind;
 import butterknife.OnClick;
 import team.io.youcodeio.R;
 
@@ -13,6 +17,15 @@ import team.io.youcodeio.R;
  *
  */
 public class SearchPropositionsActivity extends AbsActivity {
+
+    /*
+     *****************************************************************
+     * UI
+     ***************************************************************
+     */
+    @Length(min = 1, messageResId = R.string.search_field_invalid)
+    @Bind(R.id.search_edit_text)
+    EditText mSearchEditText;
 
     /*
      *****************************************************************
@@ -41,8 +54,22 @@ public class SearchPropositionsActivity extends AbsActivity {
      */
     @OnClick(R.id.search_submit_button)
     public void onClickSubmit() {
-        SearchResultActivity.start(this, "Android");
-        finish();
+        SearchResultActivity.start(this, mSearchEditText.getText().toString());
+    }
+
+    @OnClick(R.id.search_first_button)
+    public void onClickSubmitFirstButton() {
+        SearchResultActivity.start(this, getString(R.string.search_proposition_go));
+    }
+
+    @OnClick(R.id.search_second_button)
+    public void onClickSubmitSecondButton() {
+        SearchResultActivity.start(this, getString(R.string.search_proposition_android));
+    }
+
+    @OnClick(R.id.search_third_button)
+    public void onClickSubmitThirdButton() {
+        SearchResultActivity.start(this, getString(R.string.search_proposition_angular2));
     }
 
     /*

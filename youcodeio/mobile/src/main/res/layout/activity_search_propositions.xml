@@ -7,31 +7,72 @@
 
     <include layout="@layout/toolbar" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:textAlignment="center"
-        android:fontFamily="sans-serif-thin"
-        android:textColor="#000"
-        android:textSize="30sp"
-        android:text="Search Proposition"/>
-
     <EditText
+        android:id="@+id/search_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
-        android:layout_marginTop="32dp"
-        android:hint="Android"/>
+        android:layout_marginTop="64dp"
+        android:hint="@string/search_proposition_search_hint"
+        android:singleLine="true"
+        android:textAlignment="center"/>
 
     <Button
         android:id="@+id/search_submit_button"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
-        android:text="SEARCH"/>
+        android:text="@string/search_proposition_submit"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/colorPrimary">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:textAlignment="center"
+            android:fontFamily="sans-serif-bold"
+            android:textStyle="bold"
+            android:textColor="#FFF"
+            android:textSize="24sp"
+            android:text="@string/search_proposition_latest_search"/>
+
+        <Button
+            android:id="@+id/search_first_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:text="@string/search_proposition_go"/>
+
+        <Button
+            android:id="@+id/search_second_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:text="@string/search_proposition_android"/>
+
+        <Button
+            android:id="@+id/search_third_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:text="@string/search_proposition_angular2"/>
+    </LinearLayout>
 
 </LinearLayout>

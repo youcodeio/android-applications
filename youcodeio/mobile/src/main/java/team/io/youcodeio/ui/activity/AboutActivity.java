@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -12,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import team.io.youcodeio.R;
 import team.io.youcodeio.model.about.About;
 import team.io.youcodeio.model.about.SocialNetwork;
@@ -22,7 +20,7 @@ import team.io.youcodeio.ui.adapter.about.AboutRecyclerViewAdapter;
  * Created by steven_watremez on 23/04/16.
  *
  */
-public class AboutActivity extends AppCompatActivity {
+public class AboutActivity extends AbsActivity {
 
     /*****************************************************************
      * DATA
@@ -52,9 +50,17 @@ public class AboutActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about);
-        ButterKnife.bind(this);
         initUI();
+    }
+
+    @Override
+    protected int setLayout() {
+        return R.layout.activity_about;
+    }
+
+    @Override
+    protected String setToolbarTitle() {
+        return getString(R.string.drawer_menu_about);
     }
 
 

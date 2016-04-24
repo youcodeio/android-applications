@@ -115,4 +115,11 @@
         <b>%s -</b>
         %s
     </string>
+    <string name="search_proposition_android">ANDROID</string>
+    <string name="search_proposition_go">GO</string>
+    <string name="search_proposition_angular2">ANGULAR2</string>
+    <string name="search_proposition_latest_search">LATEST SEARCH</string>
+    <string name="search_proposition_submit">SUBMIT</string>
+    <string name="search_proposition_search_hint">Search...</string>
+    <string name="search_field_invalid">Champ vide</string>
 </resources>

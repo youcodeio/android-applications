@@ -22,7 +22,7 @@ import team.io.youcodeio.ui.adapter.conferences.ConferencesRecyclerViewAdapter;
  * Created by steven_watremez on 23/04/16.
  *
  */
-public class ConferencesActivity extends AppCompatActivity {
+public class ConferencesActivity extends AbsActivity {
 
     /*****************************************************************
      * DATA
@@ -52,9 +52,17 @@ public class ConferencesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_conferences);
-        ButterKnife.bind(this);
         initUI();
+    }
+
+    @Override
+    protected int setLayout() {
+        return R.layout.activity_conferences;
+    }
+
+    @Override
+    protected String setToolbarTitle() {
+        return getString(R.string.drawer_menu_conferences);
     }
 
     /*****************************************************************
