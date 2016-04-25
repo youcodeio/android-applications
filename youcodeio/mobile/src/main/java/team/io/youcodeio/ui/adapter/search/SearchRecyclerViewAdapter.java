@@ -64,7 +64,7 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
     /*****************************************************************
      * INNER CLASS
      ****************************************************************/
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView searchVideotitle;
         public TextView searchVideoDescription;
@@ -75,16 +75,22 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
         public ViewHolder(@NonNull final View itemView, @NonNull final Context context) {
             super(itemView);
             itemView.setClickable(true);
-            itemView.setOnClickListener(this);
-            itemView.setOnLongClickListener(this);
             mContext = context;
             searchVideotitle = (TextView) itemView.findViewById(R.id.search_video_title);
             searchVideoDescription = (TextView) itemView.findViewById(R.id.search_video_description);
             searchVideoImage = (ImageView) itemView.findViewById(R.id.search_video_logo);
-            itemView.findViewById(R.id.smMenuViewLeft).setOnClickListener(new View.OnClickListener() {
+
+            itemView.findViewById(R.id.btLeft).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(mContext, "left menu view onclick", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "left button onclick", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            itemView.findViewById(R.id.smContentView).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(mContext, "content view onclick", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -100,17 +106,17 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
                     .error(R.mipmap.ic_launcher_youcodeio)
                     .into(searchVideoImage);
         }
-
+/*
         @Override
         public void onClick(View view) {
             //ChannelLatestVideosActivity.start(mContext, mItem);
             Toast.makeText(mContext, "implement click", Toast.LENGTH_SHORT).show();
-        }
-
+        }*/
+/*
         @Override
         public boolean onLongClick(View view) {
             Toast.makeText(mContext, "implement Long click", Toast.LENGTH_SHORT).show();
             return true;
-        }
+        }*/
     }
 }
