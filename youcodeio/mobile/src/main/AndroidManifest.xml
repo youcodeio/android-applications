@@ -44,6 +44,9 @@
         <activity
             android:name=".ui.activity.channels.ChannelLatestVideosActivity"
             android:label="@style/AppTheme"/>
+        <activity
+            android:name=".ui.adapter.search.VideoDetailsActivity"
+            android:label="@style/AppTheme"/>
 
         <meta-data
             android:name="io.fabric.ApiKey"

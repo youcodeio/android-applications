@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
+import com.tubb.smrv.SwipeMenuLayout;
 
 import java.util.List;
 
@@ -25,6 +26,12 @@ import team.io.youcodeio.model.search.Search;
  *
  */
 public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecyclerViewAdapter.ViewHolder>{
+
+    /*****************************************************************
+     * DATA
+     ****************************************************************/
+    final private static int VIEW_TYPE_ENABLE = 0;
+    final private static int VIEW_TYPE_DISABLE = 1;
 
     /*****************************************************************
      * DATA
@@ -53,7 +60,8 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Search item = mItems.get(position);
-        holder.setItem(item);
+        boolean swipeEnable = swipeEnableByViewType(getItemViewType(position));
+        holder.setItem(item, swipeEnable);
     }
 
     @Override
@@ -71,6 +79,7 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
         public ImageView searchVideoImage;
         private Context mContext;
         private Search mItem;
+        private SwipeMenuLayout sml;
 
         public ViewHolder(@NonNull final View itemView, @NonNull final Context context) {
             super(itemView);
@@ -79,11 +88,13 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
             searchVideotitle = (TextView) itemView.findViewById(R.id.search_video_title);
             searchVideoDescription = (TextView) itemView.findViewById(R.id.search_video_description);
             searchVideoImage = (ImageView) itemView.findViewById(R.id.search_video_logo);
+            sml = (SwipeMenuLayout) itemView.findViewById(R.id.sml);
 
             itemView.findViewById(R.id.btLeft).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(mContext, "left button onclick", Toast.LENGTH_SHORT).show();
+                    VideoDetailsActivity.start(mContext, mItem);
                 }
             });
 
@@ -95,7 +106,7 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
             });
         }
 
-        public void setItem(Search item) {
+        public void setItem(@NonNull final Search item, final boolean swipeEnable) {
             mItem = item;
             itemView.setTag(item);
             searchVideotitle.setText(item.snippet.title);
@@ -105,18 +116,12 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
                     .placeholder(R.mipmap.ic_launcher_youcodeio)
                     .error(R.mipmap.ic_launcher_youcodeio)
                     .into(searchVideoImage);
+
+            sml.setSwipeEnable(swipeEnable);
         }
-/*
-        @Override
-        public void onClick(View view) {
-            //ChannelLatestVideosActivity.start(mContext, mItem);
-            Toast.makeText(mContext, "implement click", Toast.LENGTH_SHORT).show();
-        }*/
-/*
-        @Override
-        public boolean onLongClick(View view) {
-            Toast.makeText(mContext, "implement Long click", Toast.LENGTH_SHORT).show();
-            return true;
-        }*/
+    }
+
+    private boolean swipeEnableByViewType(int viewType) {
+        return viewType == VIEW_TYPE_ENABLE;
     }
 }
